@@ -1,0 +1,131 @@
+.button {
+  // background-color: rgb(55, 54, 54);
+  color: #fff;
+  outline: none;
+  border: none;
+  width: 10rem;
+  cursor: pointer;
+  transition: all 0.5s;
+  font-size: 1.6rem;
+  // box-shadow: 0 0.2rem 1rem 0 rgba(0, 0, 0, 0.5);
+
+  color: rgba(108, 219, 147, 255);
+  background-color: #000;
+  box-shadow: 0 0.4rem 1rem 0 rgba(25, 35, 27, 0.4);
+
+  &:hover {
+    background-color: #000;
+    // padding-right: 35px;
+    box-shadow: 0 0.8rem 1rem 0 rgba(0, 0, 0, 0.5);
+    transform: scale(1.03);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  & span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    font-weight: 900;
+    padding-bottom: 2px;
+  }
+
+  & span:after {
+    content: "\00bb";
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: 30px;
+    transition: 0.5s;
+  }
+
+  &:hover span {
+    padding-right: 25px;
+  }
+
+  &:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+}
+
+.left {
+  background-color: rgba(108, 219, 147, 255);
+}
+
+.subtitle {
+  //   color: rgba(255, 255, 255, 255);
+  text-transform: uppercase;
+  & span {
+    color: #000;
+    font-weight: 800;
+  }
+}
+
+.title {
+  font-size: 4rem;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 255);
+}
+
+.description {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: rgba(23, 15, 15, 1);
+}
+
+.heading {
+  font-weight: 800;
+  font-size: 4.2rem;
+  & span {
+    color: rgba(255, 255, 255, 255);
+    font-weight: 400;
+  }
+}
+
+.main-description {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 4rem;
+}
+
+.short-description {
+  font-weight: 600;
+  width: 85%;
+  text-align: justify;
+}
+
+.actions {
+  .btnu {
+    background-color: rgba(108, 219, 147, 255);
+    box-shadow: 0 0.4rem 1rem 0 rgba(132, 238, 146, 0.4);
+    color: #000;
+    transition: all 0.5s;
+
+    &:hover {
+      //   background-color: rgba(12, 186, 244, 1);
+      padding-right: 35px;
+      box-shadow: 0 0.4rem 1rem 0 rgba(132, 238, 146, 0.6);
+    }
+
+    // color: rgba(51,51,51,255);
+  }
+}
+
+// .right {
+  // background-color: rgb(225, 250, 222);
+// }
+
+.description {
+  width: 70%;
+  text-align: justify;
+}
+
+// rgba(51,51,51,255) - black
+// rgba(28,185,203,255) - blue
+// rgba(108,219,147,255) - green
+// rgba(255,255,255,255) - white
+// rgb(225, 250, 222) - greenish white

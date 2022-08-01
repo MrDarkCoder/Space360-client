@@ -1,0 +1,132 @@
+<div class="container p-4 mb-0">
+  <div class="row mb-0">
+    <form
+      (submit)="onSubmit()"
+      [formGroup]="registerForm"
+      autocomplete="off"
+      class="row mb-0"
+    >
+      <div class="form-group col-6 mb-2">
+        <label class="mb-2" for="">First Name</label>
+        <app-text-input
+          [formControl]="registerForm.controls['firstName']"
+          [label]="'First Name'"
+        >
+        </app-text-input>
+      </div>
+
+      <div class="form-group col-6 mb-2">
+        <label class="mb-2" for="">Last Name</label>
+        <app-text-input
+          [formControl]="registerForm.controls['lastName']"
+          [label]="'Last Name'"
+        >
+        </app-text-input>
+      </div>
+
+      <div class="mb-2 form-group col-6">
+        <label class="mb-2" for="">Team</label>
+        <select
+          class="form-select"
+          formControlName="teamName"
+          (change)="changeTeam($event)"
+        >
+          <option value="">Choose Team</option>
+          <option *ngFor="let team of teams">{{ team.name }}</option>
+        </select>
+        <div
+          class="mb-2 error-block"
+          *ngIf="submitted && handleErrorDropDown('teamName', 'required')"
+        >
+          You must provide a value!
+        </div>
+      </div>
+
+      <div class="mb-2 form-group col-6">
+        <label class="mb-2" for="">Sub Team</label>
+        <select
+          class="form-select"
+          formControlName="subTeamName"
+          (change)="changeSubTeam($event)"
+        >
+          <option value="">Choose Sub Team</option>
+          <option *ngFor="let team of subTeams">{{ team.name }}</option>
+        </select>
+        <div
+          class="mb-2 error-block"
+          *ngIf="submitted && handleErrorDropDown('subTeamName', 'required')"
+        >
+          You must provide a value!
+        </div>
+      </div>
+
+      <div class="form-group col-6 mb-2">
+        <label class="mb-2" for="">User Name</label>
+        <app-text-input
+          [formControl]="registerForm.controls['userName']"
+          [label]="'User Name'"
+        >
+        </app-text-input>
+      </div>
+
+      <div class="mb-2 form-group col-6">
+        <label class="mb-2" for="">Email</label>
+        <app-text-input
+          [formControl]="registerForm.controls['email']"
+          [label]="'Email'"
+          [type]="'email'"
+        >
+        </app-text-input>
+      </div>
+
+      <div class="mb-2 form-group col-6">
+        <label class="mb-2" for="">Password</label>
+        <app-text-input
+          [formControl]="registerForm.controls['password']"
+          [label]="'Password'"
+          [type]="'password'"
+        >
+        </app-text-input>
+      </div>
+
+      <div class="mb-2 form-group col-6">
+        <label class="mb-2" for="">Confirm Password</label>
+        <app-text-input
+          [formControl]="registerForm.controls['confirmPassword']"
+          [label]="'Confirm Password'"
+          [type]="'password'"
+        >
+        </app-text-input>
+      </div>
+
+      <div class="form-group text-center mt-4">
+        <input
+          class="form-check-input"
+          [formControl]="registerForm.controls['acceptTerms']"
+          [type]="'checkbox'"
+        />
+        <label class="ms-2">Accept Terms and Policies</label>
+      </div>
+
+      <div class="row mb-2" *ngIf="validationErrors.length > 0">
+        <ul class="text-danger">
+          <li *ngFor="let error of validationErrors">{{ error }}</li>
+        </ul>
+      </div>
+
+      <div class="form-group mb-0 mt-2 d-flex flex-column align-items-center">
+        <button class="btn button rounded-pill mt-2 mb-2" type="submit">
+          Register
+        </button>
+        <p class="">
+          Already have an account
+          <a class="text-decoration-underline fw-bold link" routerLink="/login"
+            >Log In</a
+          >
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- [disabled]="!registerForm.valid" -->

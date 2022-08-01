@@ -1,0 +1,82 @@
+<div class="vh-100 w-100 login-container p-0 m-0">
+  <div class="h-100 w-100 container">
+    <div class="row h-100 p-5">
+      <div class="col-12 col-md-8 left">
+        <div class="title-container">
+          <h3>Space<span>360</span></h3>
+        </div>
+
+        <div
+          class="login-wrapper d-flex flex-column justify-content-around align-items-center"
+        >
+          <div class="main-login-content d-flex flex-column align-items-center">
+            <div class="title-login">
+              <h2>Sign in to Account</h2>
+            </div>
+            <div class="border-line"></div>
+          </div>
+
+          <div class="form-container w-50">
+            <form
+              [formGroup]="loginForm"
+              (submit)="onSubmit()"
+              autocomplete="off"
+              class="row"
+            >
+              <div class="form-group col-12 mb-3">
+                <label class="form-label" for="">Email</label>
+                <app-text-input
+                  [formControl]="loginForm.controls['email']"
+                  [label]="'Email'"
+                  [type]="'email'"
+                >
+                </app-text-input>
+              </div>
+              <div class="form-group col-12 mb-3">
+                <label class="form-label" for="">Password</label>
+                <app-text-input
+                  [formControl]="loginForm.controls['password']"
+                  [label]="'Password'"
+                  [type]="'password'"
+                >
+                </app-text-input>
+              </div>
+
+              <div class="row mb-2">
+                <ul *ngIf="validationErrors.length > 0" class="text-danger">
+                  <li *ngFor="let error of validationErrors">{{ error }}</li>
+                </ul>
+              </div>
+
+              <div class="form-actions text-center mt-3">
+                <button [disabled]="!loginForm.valid" class="btn btn-md button">
+                  Sign In
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="forget-container text-center">
+            <p class="forget-password-text">Don't you know the password!?</p>
+            <a
+              routerLink="/forget-password/forget-password-account-form"
+              class="forget-password"
+              >Forget Password ?</a
+            >
+          </div>
+        </div>
+      </div>
+      <div
+        class="d-none col-12 col-md-4 right d-md-flex h-100 align-items-center justify-content-center"
+      >
+        <div class="content">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Consequuntur aperiam suscipit ut explicabo quo eius atque eum error
+            quaerat consequatur! Quos nemo veniam, deserunt corporis porro ad
+            libero molestiae tempora.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
