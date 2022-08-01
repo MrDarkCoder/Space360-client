@@ -27,8 +27,10 @@
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "node_modules/ngx-toastr/toastr.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/ngx-spinner/animations/line-scale-party.css",
               "node_modules/primeng/resources/themes/Saga-Green/theme.css",
               "src/styles.scss"
             ],
@@ -69,6 +71,11 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "sslCert": "./ssl/server.crt",
+            "sslKey": "./ssl/server.key"
+          },
           "configurations": {
             "production": {
               "browserTarget": "client:build:production"

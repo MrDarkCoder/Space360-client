@@ -7,6 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { SubTeam } from 'src/app/models/forms/SubTeam';
+import { Team } from 'src/app/models/forms/Team';
+import { MembersService } from 'src/app/services/members.service';
+import { TeamService } from 'src/app/services/team.service';
 
 @Component({
   selector: 'app-register-form',
@@ -18,15 +23,25 @@ export class RegisterFormComponent implements OnInit {
   registerForm: FormGroup;
   validationErrors: string[] = [];
 
+  currentTeamId = 0;
+  currentSubTeamId = 0;
+
   submitted: boolean = false;
 
-  teams: any;
-  subTeams: any;
+  teams: Team[];
+  subTeams: SubTeam[];
 
-  constructor(private router: Router, private fb: FormBuilder) {}
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private teamService: TeamService,
+    private memberService: MembersService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.initializeForm();
+    this.getTeams();
   }
 
   nextPage() {
@@ -43,7 +58,7 @@ export class RegisterFormComponent implements OnInit {
       subTeamName: ['', Validators.required],
       email: ['', Validators.required],
       userName: ['', Validators.required],
-      password: ['', Validators.required, Validators.minLength(4)],
+      password: ['', [Validators.required, Validators.minLength(4)]],
       confirmPassword: [
         '',
         [Validators.required, this.matchValues('password')],
@@ -75,17 +90,62 @@ export class RegisterFormComponent implements OnInit {
     this.registerForm.get('teamName').setValue(event.target.value, {
       onlySelf: true,
     });
+
+    this.currentTeamId = this.teams.find(
+      (t) => t.teamName == this.registerForm.value.teamName
+    ).teamId;
+
+    this.toastr.info('Please wait, Getting Sub-Teams Details', 'SubTeam');
+
+    this.teamService.getSubTeams(this.currentTeamId).subscribe({
+      next: (response: SubTeam[]) => {
+        console.log('[Sub Team]', response);
+        this.subTeams = response;
+      },
+    });
   }
 
   changeSubTeam(event: any) {
     this.registerForm.get('subTeamName').setValue(event.target.value, {
       onlySelf: true,
     });
+
+    this.currentSubTeamId = this.subTeams.find(
+      (t) => t.subTeamName == this.registerForm.value.subTeamName
+    ).subTeamId;
   }
 
   onSubmit() {
-    this.router.navigateByUrl('register/verification');
+    let d = {
+      ...this.registerForm.value,
+      userTeamId: this.currentTeamId,
+      userSubTeamId: this.currentSubTeamId,
+      acceptTerms: Boolean(this.registerForm.value['acceptTerms']),
+    };
+
+    console.log('[REG FORM]', d);
+
+    this.memberService.register(d).subscribe({
+      next: (response: any) => {
+        this.toastr.success(response.message, 'Regsitered');
+        this.router.navigateByUrl('register/verification');
+      },
+      error: (err) => {
+        console.log('[REG - ERR]', err);
+        this.toastr.error('Something Went Worng', 'Register');
+      },
+    });
+
+    // let teamId = this.teams.find()
   }
 
-  getTeams() {}
+  getTeams() {
+    this.toastr.info('Please wait, Getting Teams Details', 'Team');
+    this.teamService.getTeams().subscribe({
+      next: (response: Team[]) => {
+        console.log('[COMPONENT] - REGISTER', response);
+        this.teams = response;
+      },
+    });
+  }
 }

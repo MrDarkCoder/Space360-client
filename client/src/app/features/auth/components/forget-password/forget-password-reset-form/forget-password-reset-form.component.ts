@@ -7,6 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { MembersService } from 'src/app/services/members.service';
 
 @Component({
   selector: 'app-forget-password-reset-form',
@@ -16,7 +18,12 @@ export class ForgetPasswordResetFormComponent implements OnInit {
   resetForm: FormGroup;
   validationErrors: string[] = [];
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private memberService: MembersService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -34,7 +41,7 @@ export class ForgetPasswordResetFormComponent implements OnInit {
 
   initializeForm() {
     this.resetForm = this.fb.group({
-      resetOTP: ['', Validators.required],
+      otp: ['', Validators.required],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
     });
@@ -44,5 +51,16 @@ export class ForgetPasswordResetFormComponent implements OnInit {
     });
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.memberService.resetPassword(this.resetForm.value).subscribe({
+      next: (response: any) => {
+        this.toastr.success(response.message, 'Reset Succesfull');
+        this.router.navigateByUrl('/login');
+      },
+      error: (err) => {
+        console.log('[RESEt Pwd] - Fail', err);
+        this.toastr.error(err.message, 'Reset Failure');
+      },
+    });
+  }
 }

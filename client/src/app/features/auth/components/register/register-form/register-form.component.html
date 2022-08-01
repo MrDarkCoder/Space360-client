@@ -32,7 +32,7 @@
           (change)="changeTeam($event)"
         >
           <option value="">Choose Team</option>
-          <option *ngFor="let team of teams">{{ team.name }}</option>
+          <option *ngFor="let team of teams">{{ team.teamName }}</option>
         </select>
         <div
           class="mb-2 error-block"
@@ -50,7 +50,7 @@
           (change)="changeSubTeam($event)"
         >
           <option value="">Choose Sub Team</option>
-          <option *ngFor="let team of subTeams">{{ team.name }}</option>
+          <option *ngFor="let team of subTeams">{{ team.subTeamName }}</option>
         </select>
         <div
           class="mb-2 error-block"
@@ -115,7 +115,11 @@
       </div>
 
       <div class="form-group mb-0 mt-2 d-flex flex-column align-items-center">
-        <button class="btn button rounded-pill mt-2 mb-2" type="submit">
+        <button
+          [disabled]="!registerForm.valid"
+          class="btn button rounded-pill mt-2 mb-2"
+          type="submit"
+        >
           Register
         </button>
         <p class="">
@@ -128,5 +132,3 @@
     </form>
   </div>
 </div>
-
-<!-- [disabled]="!registerForm.valid" -->
