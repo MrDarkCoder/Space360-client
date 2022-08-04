@@ -211,11 +211,18 @@ textarea.form-control-lg {
     background-color: #000;
     box-shadow: 0 0.8rem 1rem 0 rgba(0, 0, 0, 0.5);
     transform: scale(1.03);
-    color: white;
+    color: #f7f7f9;
   }
 
   &:active {
     transform: scale(0.98);
+  }
+
+  &:disabled {
+    background-color: #000;
+    color: #f7f7f9;
+    cursor: not-allowed;
+    pointer-events: all !important;
   }
 }
 

@@ -15,6 +15,7 @@ import { AdminSpaceDetailComponent } from './components/admin-space/admin-space-
 import { AdminMainContentComponent } from './components/admin-main-content/admin-main-content.component';
 import { AdminTeamListComponent } from './components/admin-team/admin-team-list/admin-team-list.component';
 import { AdminTeamCreateComponent } from './components/admin-team/admin-team-create/admin-team-create.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,6 @@ import { AdminTeamCreateComponent } from './components/admin-team/admin-team-cre
     AdminTeamListComponent,
     AdminTeamCreateComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, TooltipModule],
+  imports: [CommonModule, AdminRoutingModule, TooltipModule, SharedModule],
 })
 export class AdminModule {}

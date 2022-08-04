@@ -6,9 +6,10 @@ import { CardModule } from 'primeng/card';
 
 import { HomeComponent } from './components/home/home.component';
 import { TextInputComponent } from './components/form/text-input/text-input.component';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
-  declarations: [HomeComponent, TextInputComponent],
+  declarations: [HomeComponent, TextInputComponent, CardComponent],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [
     HomeComponent,
@@ -16,6 +17,7 @@ import { TextInputComponent } from './components/form/text-input/text-input.comp
     ReactiveFormsModule,
     FormsModule,
     CardModule,
+    CardComponent,
   ],
 })
 export class SharedModule {}
