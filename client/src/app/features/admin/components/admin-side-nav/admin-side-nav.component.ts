@@ -21,18 +21,18 @@ const sidebarData = [
     label: 'Dashboard',
   },
   {
-    routerLink: '/admin/calendar',
-    icon: 'bi bi-house-fill',
-    label: 'Calendar',
+    routerLink: '/admin/reservation',
+    icon: 'bi bi-journal-bookmark-fill',
+    label: 'Reservation',
   },
   {
     routerLink: '/admin/space',
-    icon: 'bi bi-journal-album',
+    icon: 'bi bi-building',
     label: 'Space',
   },
   {
     routerLink: '/admin/team',
-    icon: 'bi bi-journal-album',
+    icon: 'bi bi-people',
     label: 'Team',
   },
 ];

@@ -1,1 +1,109 @@
-<p>admin-team-list works!</p>
+<div class="h-100">
+  <div class="row mb-3">
+    <div
+      class="d-flex flex-column flex-md-row align-items-center justify-content-between"
+    >
+      <h3
+        class="p-0 ms-2 mb-3 mb-md-0 text-muted align-self-start text-uppercase"
+      >
+        Team
+      </h3>
+      <div class="d-flex">
+        <button (click)="moveToTeamCreate()" class="btn button bt me-3">
+          <i class="bi bi-plus-circle"></i>
+          <span>Create Team</span>
+        </button>
+        <button (click)="moveToTeamCategoryCreate()" class="btn button bt">
+          <i class="bi bi-plus-circle"></i>
+          <span>Create SubTeam</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div style="cursor: pointer" class="row">
+    <p-table
+      dataKey="id"
+      [paginator]="true"
+      [value]="spaces"
+      [rowHover]="true"
+      [rows]="10"
+      responsiveLayout="scroll"
+      [lazy]="true"
+      [loading]="loading"
+      (onLazyLoad)="nextPage($event)"
+      [totalRecords]="spaces.length"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Opens At</th>
+          <th>Close At</th>
+          <th>Status</th>
+          <th>Detail</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-space>
+        <tr>
+          <td>
+            <img
+              [alt]="space.spaceName"
+              src="assets/images/01.jpg"
+              width="32"
+              height="30"
+              style="vertical-align: middle; border-radius: 1rem"
+            />
+            <span class="ms-2 image-text">{{ space.spaceName }}</span>
+          </td>
+          <td>{{ space.spaceCategory.spaceCategoryName }}</td>
+          <td>{{ space.opensAt }}</td>
+          <td>{{ space.closeAt }}</td>
+          <td>
+            <span [class]="'space-badge status-' + space.status">{{
+              space.status
+            }}</span>
+          </td>
+          <td>
+            <button
+              (click)="moveToSpaceDetail(space.spaceName)"
+              class="btn btn-sm border-0 bd"
+            >
+              <i class="bi bi-ticket-detailed"></i>
+            </button>
+            <button
+              (click)="moveToSpaceDetail(space.spaceName)"
+              class="btn btn-sm border-0 bd"
+            >
+              <i class="bi bi-pencil-square"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div> -->
+  <!-- (onNodeSelect)="onNodeSelect($event)" -->
+  <!-- [(selection)]="selectedNode" -->
+
+  <div style="max-width: 100%" class="container team-orgchaart">
+    <div class="row">
+      <div class="col-12">
+        <p-organizationChart
+          [value]="teamDetails"
+          selectionMode="single"
+          styleClass="company"
+        >
+          <ng-template let-node pTemplate="person">
+            <div class="node-header p-corner-top">{{ node.label }}</div>
+            <div class="node-content">
+              <div>{{ node.data.name }}</div>
+            </div>
+          </ng-template>
+          <ng-template let-node pTemplate="department">
+            {{ node.label }}
+          </ng-template>
+        </p-organizationChart>
+      </div>
+    </div>
+  </div>
+</div>

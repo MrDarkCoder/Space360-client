@@ -1,0 +1,100 @@
+<div class="px-3">
+  <div class="row mb-5">
+    <div class="col-12">
+      <div class="card p-2 cd-chart">
+        <h5 class="p-3 fw-bold">Vertical</h5>
+        <p-chart
+          height="250"
+          type="bar"
+          [data]="basicData"
+          [options]="basicOptions"
+        ></p-chart>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div style="cursor: pointer" class="row">
+        <p-table
+          dataKey="id"
+          [value]="reservations"
+          [rowHover]="true"
+          responsiveLayout="scroll"
+          [rows]="5"
+          [totalRecords]="10"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Title</th>
+              <th>Team</th>
+              <th pSortableColumn="spaceName">
+                Space<p-sortIcon field="spaceName"></p-sortIcon>
+              </th>
+              <th>Reserved By</th>
+              <th>Starts At</th>
+              <th>Ends At</th>
+              <th>Invited</th>
+              <th>Accepted</th>
+              <th pSortableColumn="status">
+                Status<p-sortIcon field="status"></p-sortIcon>
+              </th>
+              <!-- <th>Detail</th> -->
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-reserve>
+            <tr>
+              <td>{{ reserve.reservationTitle }}</td>
+              <td>{{ reserve.team.teamName }}</td>
+              <td>{{ reserve.reservedSpace.spaceName }}</td>
+              <td>{{ reserve.reservedByUser.username }}</td>
+              <td>{{ reserve.startsAt | date: "hh:mm a" }}</td>
+              <td>{{ reserve.endsAt | date: "hh:mm a" }}</td>
+              <td>{{ reserve.invitedCount }}</td>
+              <td>{{ reserve.acceptedCount }}</td>
+              <td>
+                <span
+                  [class]="'space-badge status-' + reserve.status.statusName"
+                  >{{ reserve.status.statusName }}</span
+                >
+              </td>
+              <!-- <td>
+                    <button
+                      (click)="moveToSpaceDetail(space.spaceName)"
+                      class="btn btn-sm border-0 bd"
+                    >
+                      <i class="bi bi-ticket-detailed"></i>
+                    </button>
+                    <button
+                      (click)="moveToSpaceDetail(space.spaceName)"
+                      class="btn btn-sm border-0 bd"
+                    >
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                  </td> -->
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  <div class="row px-3">
+    <div
+      *ngIf="pagination"
+      class="d-flex justify-content-center align-items-center"
+    >
+      <pagination
+        [boundaryLinks]="true"
+        [totalItems]="pagination.totalItems"
+        [itemsPerPage]="pagination.itemsPerPage"
+        [(ngModel)]="pagination.currentPage"
+        (pageChanged)="nextPage($event)"
+        previousText="&lsaquo;"
+        nextText="&rsaquo;"
+        firstText="&laquo;"
+        lastText="&raquo;"
+      >
+      </pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="container my-5 p-5">
+  <form
+    class="row justify-content-center"
+    [formGroup]="spaceCategoryForm"
+    autocomplete="off"
+    (submit)="onSubmit()"
+  >
+    <div class="form-group col-12 col-md-6">
+      <label class="mb-2" for="">Space Category Name</label>
+      <app-text-input
+        [formControl]="spaceCategoryForm.controls['spaceCategoryName']"
+        [label]="'Space Category Name'"
+      ></app-text-input>
+    </div>
+    <div class="form-group mt-4 d-flex flex-column align-items-center">
+      <button
+        [disabled]="!spaceCategoryForm.valid"
+        class="btn button rounded-pill mb-4"
+        type="submit"
+      >
+        Add
+      </button>
+    </div>
+  </form>
+</div>

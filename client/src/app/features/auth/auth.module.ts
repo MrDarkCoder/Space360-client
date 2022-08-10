@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { StepsModule } from 'primeng/steps';
-
 import { AuthRoutingModule } from './auth-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgOtpInputModule } from 'ng-otp-input';
@@ -25,12 +23,6 @@ import { ForgetPasswordResetFormComponent } from './components/forget-password/f
     ForgetPasswordTextFormComponent,
     ForgetPasswordResetFormComponent,
   ],
-  imports: [
-    CommonModule,
-    AuthRoutingModule,
-    SharedModule,
-    StepsModule,
-    NgOtpInputModule,
-  ],
+  imports: [CommonModule, AuthRoutingModule, SharedModule, NgOtpInputModule],
 })
 export class AuthModule {}

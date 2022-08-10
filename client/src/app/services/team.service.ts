@@ -11,12 +11,25 @@ export class TeamService {
   constructor(private http: HttpClient) {}
 
   getTeams() {
+    return this.http.get(this.baseUrl + 'team/form').pipe(
+      map((response) => {
+        console.log('[API - /team/form]', response);
+        return response;
+      })
+    );
+  }
+
+  getTeamDetails() {
     return this.http.get(this.baseUrl + 'team').pipe(
       map((response) => {
         console.log('[API - /team]', response);
         return response;
       })
     );
+  }
+
+  createTeam(team: any) {
+    return this.http.post(this.baseUrl + 'team', team);
   }
 
   getSubTeams(id: number) {

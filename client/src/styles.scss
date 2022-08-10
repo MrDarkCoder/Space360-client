@@ -1,4 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&display=swap");
+
+body {
+  font-family: "Montserrat", sans-serif, "Times New Roman", Times, serif;
+}
+
 .form-text {
   margin-top: 0.25rem;
   font-size: 0.875em;
@@ -233,4 +240,149 @@ textarea.form-control-lg {
   &:hover {
     color: rgba(108, 219, 147, 255);
   }
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background-color: rgba(51, 51, 51, 255);
+  color: #fff;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #79ec96 #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #79ec96;
+  border-radius: 10px;
+  border: 0px solid #ffffff;
+}
+
+.team-orgchaart {
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none !important;
+  }
+}
+
+.bt {
+  width: auto;
+  height: 3.5rem;
+  margin-bottom: 1rem;
+  // background-color: rgba(255, 255, 255, 255);
+  // color: rgba(51, 51, 51, 255);
+  text-align: center;
+  border-radius: 0.5rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & span {
+    padding: 0;
+  }
+
+  .bi {
+    color: rgba(108, 219, 147, 255);
+    font-size: 1.5rem;
+    margin-right: 0.61rem;
+  }
+}
+
+.register-container {
+  min-height: 90vh;
+  .left {
+    background-color: rgba(255, 255, 255, 255);
+    box-shadow: 0 0.4rem 1rem 0 rgba(8, 14, 10, 0.4);
+
+    .title-container {
+      font-size: 1.2rem;
+      padding: 1rem;
+      & h3 {
+        font-weight: 700;
+        color: #000;
+        & span {
+          font-weight: 700;
+          color: rgba(108, 219, 147, 255);
+        }
+      }
+    }
+  }
+}
+
+.cd-chart {
+  box-shadow: 0 1rem 1.4rem rgba(51, 51, 51, 0.3);
+  cursor: pointer;
+}
+
+.p-datatable .p-sortable-column.p-highlight {
+  background: rgba(51, 51, 51, 255);
+}
+
+.pagination {
+  display: flex;
+  width: 23rem;
+  justify-content: space-around;
+  margin: 1rem 0;
+
+  .page-link {
+    border-radius: 0.6rem;
+    border: none;
+    color: #000;
+  }
+  .page-link.disabled,
+  .disabled > .page-link {
+    pointer-events: all !important;
+    cursor: not-allowed;
+  }
+  .page-link.active,
+  .active > .page-link {
+    background-color: #79ec96;
+    color: #fff;
+  }
+}
+
+.space-badge {
+  border-radius: 1rem;
+  padding: 0.29em 0.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.3px;
+}
+
+.space-badge.status-SCHEDULED {
+  background-color: rgba(19, 99, 223, 0.5);
+  color: #1363df;
+}
+
+.space-badge.status-CANCELLED {
+  background-color: rgba(252, 138, 138);
+  color: #a30f0f;
+}
+
+.space-badge.status-ONPROGRESS {
+  background-color: rgba(255, 167, 38, 0.5);
+  color: #ffa726;
+}
+
+.space-badge.status-COMPLETED {
+  background-color: rgba(108, 219, 147, 0.5);
+  color: rgba(108, 219, 147, 255);
+}
+
+.space-badge.status-AVAILABLE {
+  background-color: rgba(98, 252, 132, 0.5);
+  color: #018508;
 }

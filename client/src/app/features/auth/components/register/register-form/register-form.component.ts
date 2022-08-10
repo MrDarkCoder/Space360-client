@@ -143,8 +143,7 @@ export class RegisterFormComponent implements OnInit {
     this.toastr.info('Please wait, Getting Teams Details', 'Team');
     this.teamService.getTeams().subscribe({
       next: (response: Team[]) => {
-        console.log('[COMPONENT] - REGISTER', response);
-        this.teams = response;
+        console.log('[COMPONENT] - REGISTER', response);        
       },
     });
   }

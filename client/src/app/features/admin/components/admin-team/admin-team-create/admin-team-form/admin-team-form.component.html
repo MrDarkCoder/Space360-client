@@ -1,0 +1,26 @@
+<div class="container my-5 p-5">
+  <form
+    class="row justify-content-center"
+    [formGroup]="teamForm"
+    autocomplete="off"
+    (submit)="onSubmit()"
+  >
+    <div class="form-group col-12 col-md-6">
+      <label class="mb-2" for="">Team Name</label>
+      <app-text-input
+        [formControl]="teamForm.controls['teamName']"
+        [label]="'Team Name'"
+      ></app-text-input>
+    </div>
+
+    <div class="form-group mt-4 d-flex flex-column align-items-center">
+      <button
+        [disabled]="!teamForm.valid"
+        class="btn button rounded-pill mb-4"
+        type="submit"
+      >
+        Add
+      </button>
+    </div>
+  </form>
+</div>

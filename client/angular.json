@@ -34,7 +34,7 @@
               "node_modules/primeng/resources/themes/Saga-Green/theme.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": ["node_modules/chart.js/dist/chart.js"]
           },
           "configurations": {
             "production": {
