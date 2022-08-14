@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
@@ -10,6 +10,7 @@ import { UserMainContentComponent } from './components/user-main-content/user-ma
 import { UserSideNavComponent } from './components/user-side-nav/user-side-nav.component';
 import { UserSpaceListComponent } from './components/user-space/user-space-list/user-space-list.component';
 import { UserSpaceDetailComponent } from './components/user-space/user-space-detail/user-space-detail.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { UserSpaceDetailComponent } from './components/user-space/user-space-det
     UserSpaceListComponent,
     UserSpaceDetailComponent,
   ],
-  imports: [CommonModule, UserRoutingModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [CommonModule, UserRoutingModule, SharedModule],
 })
 export class UserModule {}

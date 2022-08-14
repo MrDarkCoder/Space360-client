@@ -56,7 +56,7 @@ export class RegisterFormComponent implements OnInit {
       lastName: ['', Validators.required],
       teamName: ['', Validators.required],
       subTeamName: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       userName: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(4)]],
       confirmPassword: [
@@ -88,7 +88,7 @@ export class RegisterFormComponent implements OnInit {
 
   changeTeam(event: any) {
     this.registerForm.get('teamName').setValue(event.target.value, {
-      onlySelf: true,
+      onlySelf: true, 
     });
 
     this.currentTeamId = this.teams.find(
@@ -143,7 +143,8 @@ export class RegisterFormComponent implements OnInit {
     this.toastr.info('Please wait, Getting Teams Details', 'Team');
     this.teamService.getTeams().subscribe({
       next: (response: Team[]) => {
-        console.log('[COMPONENT] - REGISTER', response);        
+        this.teams = response;
+        console.log('[COMPONENT] - REGISTER', response);
       },
     });
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
 
@@ -21,11 +22,47 @@ export class AdminSpaceListComponent implements OnInit {
   ct = 0;
   loading: boolean;
 
-  constructor(private router: Router, private spaceService: SpaceService) {}
+  dropdownForm: FormGroup;
+  dropdown = [
+    { id: 1, pageSize: 3 },
+    { id: 2, pageSize: 5 },
+    { id: 3, pageSize: 15 },
+    { id: 4, pageSize: 25 },
+  ];
+
+  constructor(
+    private router: Router,
+    private spaceService: SpaceService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.loading = false;
+    this.initializeForm();
     this.loadSpaces();
+  }
+
+  initializeForm() {
+    this.dropdownForm = this.fb.group({
+      pageSize: [this.spaceParams.pageSize, Validators.required],
+    });
+  }
+
+  changePageSize(event: any) {
+    this.dropdownForm.get('pageSize').setValue(event.target.value, {
+      onlySelf: true,
+    });
+    this.spaceParams.pageSize = this.dropdownForm.value.pageSize;
+    this.loadSpaces();
+    console.log(this.dropdownForm.value);
+  }
+
+  handleErrorDropDown = (controlName: string, errorName: string) => {
+    return this.dropdownForm.controls[controlName].hasError(errorName);
+  };
+
+  onSubmit() {
+    console.log('new page size', this.dropdownForm.value);
   }
 
   sample(name: string) {
@@ -49,6 +86,9 @@ export class AdminSpaceListComponent implements OnInit {
         console.log(this.pagination);
         console.log(this.spaces);
         this.loading = false;
+        if (this.dropdown.length <= 4) {
+          this.dropdown.push({ id: 5, pageSize: this.pagination.totalItems });
+        }
       },
     });
   }

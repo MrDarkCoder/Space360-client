@@ -26,6 +26,14 @@ export class SpaceService {
     return this.getPaginatedResult<Space[]>(url, params);
   }
 
+  getAllSpaces() {
+    return this.http.get(this.baseUrl + 'space/all').pipe(
+      map((response) => {
+        return response;
+      })
+    );
+  }
+
   createSpace(space: any) {
     return this.http.post(this.baseUrl + 'space', space).pipe(
       map((response) => {
@@ -42,12 +50,36 @@ export class SpaceService {
     );
   }
 
+  getSpaceByCategory(id: number) {
+    return this.http.get(this.baseUrl + 'space/category/form/' + id).pipe(
+      map((response) => {
+        return response;
+      })
+    );
+  }
+
   createSpaceCategory(spaceCategory: any) {
     return this.http.post(this.baseUrl + 'spaceCategory', spaceCategory).pipe(
       map((response) => {
         return response;
       })
     );
+  }
+
+  getReservedTimings(spaceId: number, spaceName: string) {
+    let params = new HttpParams();
+    params = params.append('spaceId', spaceId);
+    params = params.append('spaceName', spaceName);
+
+    return this.http
+      .get(this.baseUrl + 'reservation/reserved-timings', {
+        params: params,
+      })
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
   }
 
   private getPaginatedResult<T>(url: string, params: HttpParams) {

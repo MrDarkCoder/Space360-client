@@ -8,117 +8,6 @@ import { TeamService } from 'src/app/services/team.service';
   templateUrl: './admin-team-list.component.html',
 })
 export class AdminTeamListComponent implements OnInit {
-  spaces = [
-    {
-      spaceId: 1,
-      spaceName: 'Elon Musk',
-      spaceCategory: {
-        spaceCategoryId: 1,
-        spaceCategoryName: 'Conference Room',
-      },
-      opensAt: '8:00 AM',
-      closeAt: '6:00 PM',
-      spaceCapacity: 8,
-      status: 'available',
-    },
-    {
-      spaceId: 2,
-      spaceName: 'Silicon Valley',
-      spaceCategory: {
-        spaceCategoryId: 1,
-        spaceCategoryName: 'Huddle Space',
-      },
-      opensAt: '8:00 AM',
-      closeAt: '6:00 PM',
-      spaceCapacity: 18,
-      status: 'unavailable',
-    },
-    {
-      spaceId: 1,
-      spaceName: 'Elon Musk',
-      spaceCategory: {
-        spaceCategoryId: 1,
-        spaceCategoryName: 'Conference Room',
-      },
-      opensAt: '8:00 AM',
-      closeAt: '6:00 PM',
-      spaceCapacity: 8,
-      status: 'available',
-    },
-    {
-      spaceId: 2,
-      spaceName: 'Silicon Valley',
-      spaceCategory: {
-        spaceCategoryId: 1,
-        spaceCategoryName: 'Huddle Space',
-      },
-      opensAt: '8:00 AM',
-      closeAt: '6:00 PM',
-      spaceCapacity: 18,
-      status: 'unavailable',
-    },
-    {
-      spaceId: 1,
-      spaceName: 'Elon Musk',
-      spaceCategory: {
-        spaceCategoryId: 1,
-        spaceCategoryName: 'Conference Room',
-      },
-      opensAt: '8:00 AM',
-      closeAt: '6:00 PM',
-      spaceCapacity: 8,
-      status: 'available',
-    },
-    {
-      spaceId: 2,
-      spaceName: 'Silicon Valley',
-      spaceCategory: {
-        spaceCategoryId: 1,
-        spaceCategoryName: 'Huddle Space',
-      },
-      opensAt: '8:00 AM',
-      closeAt: '6:00 PM',
-      spaceCapacity: 18,
-      status: 'unavailable',
-    },
-    {
-      spaceId: 1,
-      spaceName: 'Elon Musk',
-      spaceCategory: {
-        spaceCategoryId: 1,
-        spaceCategoryName: 'Conference Room',
-      },
-      opensAt: '8:00 AM',
-      closeAt: '6:00 PM',
-      spaceCapacity: 8,
-      status: 'available',
-    },
-    {
-      spaceId: 2,
-      spaceName: 'Silicon Valley',
-      spaceCategory: {
-        spaceCategoryId: 1,
-        spaceCategoryName: 'Huddle Space',
-      },
-      opensAt: '8:00 AM',
-      closeAt: '6:00 PM',
-      spaceCapacity: 18,
-      status: 'unavailable',
-    },
-    {
-      spaceId: 1,
-      spaceName: 'Elon Musk',
-      spaceCategory: {
-        spaceCategoryId: 1,
-        spaceCategoryName: 'Conference Room',
-      },
-      opensAt: '8:00 AM',
-      closeAt: '6:00 PM',
-      spaceCapacity: 8,
-      status: 'available',
-    },
-  ];
-
   teamDetails: TreeNode[] = [];
 
   data1: TreeNode[];
@@ -258,6 +147,7 @@ export class AdminTeamListComponent implements OnInit {
         let c: TreeNode = {
           label: 'Space360',
           type: 'node',
+          styleClass: 'p-person',
           expanded: true,
           data: { name: 'space360' },
           children: [],
@@ -269,6 +159,7 @@ export class AdminTeamListComponent implements OnInit {
           let lc: TreeNode = {
             label: el.teamName,
             type: 'node',
+            styleClass: 'department-cfo',
             expanded: true,
             data: { name: el.teamName },
             children: [],
@@ -278,6 +169,7 @@ export class AdminTeamListComponent implements OnInit {
             let sc: TreeNode = {
               label: sb.subTeamName,
               type: 'node',
+              styleClass: 'p-subteam',
               expanded: true,
               data: { name: sb.subTeamName },
               children: [],
@@ -287,6 +179,7 @@ export class AdminTeamListComponent implements OnInit {
               let ucc: TreeNode = {
                 label: uc.firstName,
                 type: 'node',
+                styleClass: 'p-users',
                 expanded: true,
                 data: { name: uc.firstName },
                 children: [],
@@ -305,6 +198,33 @@ export class AdminTeamListComponent implements OnInit {
         // });
       },
     });
+  }
+
+  mouseDown = false;
+
+  startX: any;
+
+  scrollLeft: any;
+
+  slider = document.querySelector<HTMLElement>('.parent');
+
+  startDragging(e, flag, el) {
+    this.mouseDown = true;
+    this.startX = e.pageX - el.offsetLeft;
+    this.scrollLeft = el.scrollLeft;
+  }
+  stopDragging(e, flag) {
+    this.mouseDown = false;
+  }
+  moveEvent(e, el) {
+    e.preventDefault();
+    if (!this.mouseDown) {
+      return;
+    }
+    // console.log(e);
+    const x = e.pageX - el.offsetLeft;
+    const scroll = x - this.startX;
+    el.scrollLeft = this.scrollLeft - scroll;
   }
 
   moveToTeamCreate() {

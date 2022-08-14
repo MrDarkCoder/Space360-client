@@ -25,6 +25,34 @@ export class ReservationsService {
     return this.getPaginatedResult<any>(url, params);
   }
 
+  getAllReservations() {
+    return this.http.get(this.baseUrl + 'reservation/resers').pipe(
+      map((response) => {
+        return response;
+      })
+    );
+  }
+
+  reserve(data: any) {
+    return this.http.post(this.baseUrl + 'reservation/reservee', data).pipe(
+      map((response) => {
+        console.log(response);
+        return response;
+      })
+    );
+  }
+
+  chechSpaceAvailability(data: any) {
+    return this.http
+      .post(this.baseUrl + 'reservation/check-space-available', data)
+      .pipe(
+        map((response) => {
+          console.log(response);
+          return response;
+        })
+      );
+  }
+
   private getPaginatedResult<T>(url: string, params: HttpParams) {
     const paginatedResults: PaginatedResult<T> = new PaginatedResult<T>();
 

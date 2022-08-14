@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Pagination } from 'src/app/models/pagination/pagination';
 import { ReserParams } from 'src/app/models/pagination/reserParams';
 import { ReservationsService } from 'src/app/services/reservations.service';
+import { StatisticsService } from 'src/app/services/statistics.service';
+
+import { utc } from 'moment';
 
 @Component({
   selector: 'app-admin-reservation',
@@ -15,35 +18,17 @@ export class AdminReservationComponent implements OnInit {
   reserParams: ReserParams = new ReserParams();
   reservations = [];
 
-  constructor(private reservationsService: ReservationsService) {}
+  utc = utc;
 
+  constructor(
+    private reservationsService: ReservationsService,
+    private statService: StatisticsService
+  ) {}
+
+  // labels: ['Elon Musk', 'Silicon Valley', 'Training Hall', 'New York'],
+  // data: [65, 59, 80, 81],
   ngOnInit(): void {
     this.loadReservations();
-    this.basicData = {
-      labels: ['Elon Musk', 'Silicon Valley', 'Training Hall', 'New York'],
-      datasets: [
-        {
-          label: 'Completed',
-          backgroundColor: 'rgba(108, 219, 147, 255)',
-          data: [65, 59, 80, 81, 56, 55, 40],
-        },
-        {
-          label: 'On Progress',
-          backgroundColor: '#FFA726',
-          data: [28, 48, 40, 19, 86, 27, 90],
-        },
-        {
-          label: 'Cancelled',
-          backgroundColor: '#F27B57',
-          data: [65, 59, 80, 81, 56, 55, 40],
-        },
-        {
-          label: 'Scheduled',
-          backgroundColor: '#1363DF',
-          data: [28, 48, 40, 19, 86, 27, 90],
-        },
-      ],
-    };
     this.basicOptions = {
       plugins: {
         legend: {
@@ -74,6 +59,8 @@ export class AdminReservationComponent implements OnInit {
         },
       },
     };
+
+    this.loadSpaceBarChart();
   }
 
   nextPage(event: any) {
@@ -89,6 +76,47 @@ export class AdminReservationComponent implements OnInit {
         this.pagination = response.pagination;
         console.log(this.pagination);
         console.log(this.reservations);
+      },
+    });
+  }
+
+  loadSpaceBarChart() {
+    this.statService.getSpaceBarStats().subscribe({
+      next: (response: any) => {
+        console.log('[stats] ', response);
+
+        this.basicData = {
+          labels: response.labels,
+          datasets: [
+            {
+              label: 'Completed',
+              backgroundColor: 'rgba(108, 219, 147, 255)',
+              data: [],
+            },
+            {
+              label: 'Cancelled',
+              backgroundColor: '#F27B57',
+              data: [],
+            },
+            {
+              label: 'Scheduled',
+              backgroundColor: '#1363DF',
+              data: [],
+            },
+          ],
+        };
+        let o = 0;
+        let k = 0;
+        response?.data.forEach((d) => {
+          console.log(d);
+          d.forEach((l) => {
+            console.log(l);
+
+            if (l == 0) l = ++o;
+            this.basicData.datasets[k++].data.push(l);
+          });
+          k = 0;
+        });
       },
     });
   }

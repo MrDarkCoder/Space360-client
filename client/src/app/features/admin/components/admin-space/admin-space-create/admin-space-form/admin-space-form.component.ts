@@ -8,13 +8,17 @@ import { SpaceService } from 'src/app/services/space.service';
 @Component({
   selector: 'app-admin-space-form',
   templateUrl: './admin-space-form.component.html',
-  styleUrls: ['./admin-space-form.component.scss'],
 })
 export class AdminSpaceFormComponent implements OnInit {
   spaceForm: FormGroup;
   spaceCategories: SpaceCategory[];
   submitted: boolean = false;
   currentCategoryId = 0;
+
+  minTime: Date = new Date();
+  maxTime: Date = new Date();
+  opensAtDefault: Date = new Date();
+  closeAtDefault: Date = new Date();
 
   constructor(
     private fb: FormBuilder,
@@ -25,21 +29,33 @@ export class AdminSpaceFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    // this.getSubTeams();
+
+    //Setting default time for time picker
+    this.opensAtDefault.setHours(9);
+    this.opensAtDefault.setMinutes(0);
+
+    this.closeAtDefault.setHours(18);
+    this.closeAtDefault.setMinutes(0);
+
+    //Setting Minimum and Maximum time for Time Picker component
+    this.minTime.setHours(9);
+    this.minTime.setMinutes(0);
+    this.maxTime.setHours(18);
+    this.maxTime.setMinutes(0);
+
+    this.getSpaceCategory();
   }
 
   initializeForm() {
     this.spaceForm = this.fb.group({
       spaceName: ['', Validators.required],
-      spaceCategoryName: ['', Validators.required],
+      spaceCategoryName: [''],
       capacity: [0, Validators.required],
       image: ['', Validators.required],
-      opensAt: ['9:00', Validators.required],
-      closeAt: ['6:00', Validators.required],
+      opensAt: [this.opensAtDefault, Validators.required],
+      closeAt: [this.closeAtDefault, Validators.required],
       file: ['', Validators.required],
     });
-    this.spaceForm.get('opensAt').disable();
-    this.spaceForm.get('closeAt').disable();
   }
 
   onFileSelected(event: any) {
@@ -55,7 +71,7 @@ export class AdminSpaceFormComponent implements OnInit {
     return this.spaceForm.controls[controlName].hasError(errorName);
   };
 
-  getSubTeams() {
+  getSpaceCategory() {
     this.spaceService.getSpaceCategory().subscribe({
       next: (response: SpaceCategory[]) => {
         this.spaceCategories = response;
@@ -75,19 +91,25 @@ export class AdminSpaceFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+
+    let st = new Date(this.spaceForm.value.opensAt + 'UTC');
+    let ct = new Date(this.spaceForm.value.closeAt + 'UTC');
+
     let formData = new FormData();
 
     formData.append('spaceName', this.spaceForm.value.spaceName);
     formData.append('spaceCapacity', this.spaceForm.value.capacity);
     formData.append('spaceCategoryId', this.currentCategoryId.toString());
     formData.append('form', this.spaceForm.value.image);
-    formData.append('opensAt', this.spaceForm.value.opensAt);
-    formData.append('closeAt', this.spaceForm.value.closeAt);
+    formData.append('opensAt', st.toISOString());
+    formData.append('closesAt', ct.toISOString());
 
     console.dir(formData);
+    console.log('[st]', st.toISOString());
+    console.log('[ct]', ct.toISOString());
 
     // post call
-    this.spaceService.createSpaceCategory(formData).subscribe({
+    this.spaceService.createSpace(formData).subscribe({
       next: (response: any) => {
         this.toastr.success(response.message);
         this.router.navigateByUrl('/admin/space');

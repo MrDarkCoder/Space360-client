@@ -1,1 +1,218 @@
-<p>user-reservation works!</p>
+<div class="w-100 register-container p-0 m-0">
+  <div class="w-100">
+    <div class="row h-100 p-2 mt-3">
+      <div style="min-height: 43rem" class="col-12 left">
+        <div class="title-container">
+          <h3>Make <span>Reservation</span></h3>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-xl-6">
+            <form
+              autocomplete="off"
+              [formGroup]="reservationForm"
+              (submit)="onSubmit()"
+              class="row p-2 mt-3 align-items-center"
+            >
+              <div class="form-group col-6 mb-3">
+                <label class="mb-3">Chose Space Category</label>
+                <select
+                  type="text"
+                  class="form-control form-select rounded-0"
+                  formControlName="spaceCategoryId"
+                  #category
+                  (change)="changeCategory($event)"
+                >
+                  <option disabled value="">Space Category..</option>
+                  <option
+                    *ngFor="let element of spaceCategory"
+                    value="{{ element.spaceCategoryId }}"
+                  >
+                    {{ element.spaceCategoryName }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group col-6 mb-3">
+                <label class="mb-3">Chose Space</label>
+                <select
+                  type="text"
+                  formControlName="reservedSpaceId"
+                  class="form-control form-select rounded-0"
+                  (change)="changeSpace($event)"
+                >
+                  <option disabled value="">Space..</option>
+                  <option
+                    *ngFor="let element of spaces"
+                    value="{{ element.spaceId }}"
+                  >
+                    {{ element.spaceName }}
+                  </option>
+                </select>
+              </div>
+
+              <div
+                class="form-group col-12 d-flex align-items-center mt-2 mb-3"
+              >
+                <label class="me-2 mb-3 col-3">Members</label>
+                <div class="mb-3 col-3">
+                  <input
+                    #fullteam
+                    type="radio"
+                    formControlName="selection"
+                    class="form-check-input"
+                    name="selection"
+                    value="fullteam"
+                    (change)="getSelection(fullteam.id)"
+                    id="fullteam"
+                  />
+                  <label class="form-check-label ms-2">Full Team</label>
+                </div>
+                <div class="mb-3 col-3">
+                  <input
+                    #subteam
+                    type="radio"
+                    name="selection"
+                    class="form-check-input"
+                    id="subteam"
+                    value="subTeam"
+                    formControlName="selection"
+                    (change)="getSelection(subteam.id)"
+                  />
+                  <label class="form-check-label ms-2">Sub Team</label>
+                </div>
+                <div class="mb-3 col-3">
+                  <input
+                    #individual
+                    type="radio"
+                    formControlName="selection"
+                    class="form-check-input"
+                    name="selection"
+                    value="individual"
+                    (change)="getSelection(individual.id)"
+                    id="individual"
+                  />
+                  <label class="form-check-label ms-2">Individuals</label>
+                </div>
+              </div>
+
+              <div class="form-group mb-3 col-6">
+                <label class="mb-3">Sub Team</label>
+                <select
+                  formControlName="reservedSubTeamId"
+                  name="subTeamId"
+                  type="number"
+                  class="form-control form-select"
+                >
+                  <option disabled value="">Chose Sub Team..</option>
+                  <option
+                    *ngFor="let element of subTeams"
+                    value="{{ element.subTeamId }}"
+                  >
+                    {{ element.subTeamName }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group mb-3 col-6 d-flex flex-column">
+                <label class="mb-3">Attendees</label>
+                <p-autoComplete
+                  name="attendees"
+                  formControlName="reservedUsers"
+                  field="username"
+                  [suggestions]="filteredTeammembers"
+                  (completeMethod)="filterTeamMembers($event)"
+                  [multiple]="true"
+                  styleClass="wid100"
+                >
+                </p-autoComplete>
+              </div>
+
+              <div class="form-group col-12 mb-3">
+                <label class="mb-3">Short Description</label>
+                <input
+                  type="text"
+                  class="form-control rounded-0"
+                  formControlName="reservationTitle"
+                />
+              </div>
+
+              <div class="form-group mt-2 mb-3 col-6">
+                <label class="mb-3">Starts At</label>
+                <timepicker
+                  [min]="minTime"
+                  [max]="maxTime"
+                  formControlName="startsAt"
+                ></timepicker>
+              </div>
+
+              <div class="form-group mb-3 col-6">
+                <label class="mb-3">Duration</label>
+                <select
+                  type="text"
+                  class="form-control form-select rounded-0"
+                  formControlName="duration"
+                >
+                  <option value="30">30 mins</option>
+                  <option value="45">45 mins</option>
+                  <option value="60">60 mins</option>
+                </select>
+              </div>
+
+              <div
+                class="form-group mt-4 d-flex justify-content-center align-items-center"
+              >
+                <button
+                  type="button"
+                  [disabled]="!reservationForm.valid"
+                  class="btn button rounded-pill me-3 mb-4"
+                  (click)="checkSpaceAvailability()"
+                >
+                  Check
+                </button>
+                <button
+                  [disabled]="!reservationForm.valid || !isSpaceAvailable"
+                  class="btn button rounded-pill mb-4"
+                  type="submit"
+                >
+                  Reserve
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="col-12 col-xl-6">
+            <ng-container>
+              <p-table
+                dataKey="id"
+                [value]="reservations"
+                [rowHover]="true"
+                responsiveLayout="scroll"
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Reserved By</th>
+                    <th>Reserved Team</th>
+                    <th>Starts At</th>
+                    <th>Ends At</th>
+                    <th>Duration</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-reserve>
+                  <tr>
+                    <td>{{ reserve.reservedByUser.username }}</td>
+                    <td>{{ reserve.team.teamName }}</td>
+                    <td>
+                      {{ utc(reserve.startsAt).local() | date: "hh:mm a" }}
+                    </td>
+                    <td>{{ utc(reserve.endsAt).local() | date: "hh:mm a" }}</td>
+                    <td>{{ reserve.duration }} min</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

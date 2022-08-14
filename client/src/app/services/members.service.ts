@@ -3,16 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
-interface User {
-  userId: number;
-  userTeamId: number;
-  userSubTeamId: number;
-  email: string;
-  userRole: string;
-  isVerified: boolean;
-  accessToken: string;
-}
+import { User } from '../models/users/User';
 
 @Injectable({
   providedIn: 'root',
@@ -33,9 +24,9 @@ export class MembersService {
         console.log('[API - LOGIN]', response);
         if (user) {
           this.setCurrentUser(user);
-          // routing
+          // routing;
           if (user.userRole == 'Admin') {
-            this.router.navigateByUrl('/admin');
+            this.router.navigateByUrl('/admin/reservation');
           } else if (user.userRole == 'User') {
             this.router.navigateByUrl('/user');
           }

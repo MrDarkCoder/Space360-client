@@ -85,14 +85,22 @@
   <!-- (onNodeSelect)="onNodeSelect($event)" -->
   <!-- [(selection)]="selectedNode" -->
 
-  <div style="max-width: 100%" class="container team-orgchaart">
+  <div
+    #elemt
+    (mousedown)="startDragging($event, false, elemt)"
+    (mouseup)="stopDragging($event, false)"
+    (mouseleave)="stopDragging($event, false)"
+    (mousemove)="moveEvent($event, elemt)"
+    style="
+      height: 42rem;
+      cursor: pointer;
+      box-shadow: 0 1rem 1.4rem rgba(51, 51, 51, 0.3);
+    "
+    class="card justify-content-center team-orgchaart p-5"
+  >
     <div class="row">
       <div class="col-12">
-        <p-organizationChart
-          [value]="teamDetails"
-          selectionMode="single"
-          styleClass="company"
-        >
+        <p-organizationChart [value]="teamDetails" styleClass="company">
           <ng-template let-node pTemplate="person">
             <div class="node-header p-corner-top">{{ node.label }}</div>
             <div class="node-content">

@@ -1,61 +1,4 @@
 <div class="h-100">
-  <!-- <div class="row">
-    <div class="text-center d-flex align-items-center justify-content-center">
-      <h3 class="me-4 text-muted text-uppercase">Space</h3>
-      <span class="w-100 text-center mb-1 dashed"></span>
-    </div>
-  </div>
-
-  <div class="row mb-5 justify-content-around">
-    <ng-container *ngFor="let space of spaces">
-      <div class="cd-container">
-        <div class="card p-0 m-0 cd border-0">
-          <div class="card-head">
-            <img
-              class="hall-image text-center"
-              src="assets/images/01.jpg"
-              alt="hall"
-            />
-            <ul class="list-inline hall-name animate text-center">
-              <li class="list-inline-item">
-                <button class="btn fw-bold text-uppercase button">Hall</button>
-              </li>
-            </ul>
-          </div>
-          <div class="card-body d-flex justify-content-between m-0">
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa
-              deleniti velit enim omnis sapiente maiores excepturi veniam nulla
-              corrupti, earum itaque provident perferendis repudiandae placeat
-              quis sequi, quae dicta in.
-            </p>
-          </div>
-        </div>
-      </div>
-    </ng-container>
-
-    <div class="container mt-4">
-      <div class="row parent">
-        <ng-container *ngFor="let space of spaces">
-          <div class="card">
-            <div class="card-body d-flex justify-content-between">
-              <div class="icon">icon</div>
-              <div class="content text-justify m-0 ms-2">number</div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-                aliquam eum voluptas neque modi eveniet laborum voluptatum? Rem
-                non excepturi consequatur quidem quis corporis omnis voluptates
-                in mollitia suscipit. Saepe.
-              </p>
-            </div>
-          </div>
-        </ng-container>
-      </div>
-    </div>
-    
-    <h3>World</h3>
-  </div> -->
-
   <div class="row mb-3">
     <div
       class="d-flex flex-column flex-md-row align-items-center justify-content-between"
@@ -167,9 +110,12 @@
             <th pSortableColumn="spaceName">
               Name<p-sortIcon field="spaceName"></p-sortIcon>
             </th>
-            <th pSortableColumn="spaceCategoryName">
-              Category<p-sortIcon field="spaceCategoryName"></p-sortIcon>
+            <th pSortableColumn="spaceCategory.spaceCategoryName">
+              Category<p-sortIcon
+                field="spaceCategory.spaceCategoryName"
+              ></p-sortIcon>
             </th>
+            <th>Capacity</th>
             <th>Opens At</th>
             <th>Close At</th>
             <!-- <th pSortableColumn="statusName">
@@ -183,7 +129,7 @@
             <td>
               <img
                 [alt]="space.spaceName"
-                src="assets/images/01.jpg"
+                src="{{ space.imageUrl }}"
                 width="32"
                 height="30"
                 style="vertical-align: middle; border-radius: 1rem"
@@ -191,8 +137,9 @@
               <span class="ms-2 image-text">{{ space.spaceName }}</span>
             </td>
             <td>{{ space.spaceCategory.spaceCategoryName }}</td>
-            <td>{{ space.opensAt }}</td>
-            <td>{{ space.closeAt }}</td>
+            <td>{{ space.spaceCapacity }}</td>
+            <td>{{ space.opensAt | date: "hh:mm a" }}</td>
+            <td>{{ space.closesAt | date: "hh:mm a" }}</td>
             <!-- <td>
               <span [class]="'space-badge status-' + space.status.statusName">{{
                 space.status.statusName
@@ -233,6 +180,35 @@
           lastText="&raquo;"
         >
         </pagination>
+
+        <form
+          [formGroup]="dropdownForm"
+          autocomplete="off"
+          (submit)="onSubmit()"
+          class="row"
+          *ngIf="pagination.currentPage == 1"
+        >
+          <div class="form-group">
+            <select
+              class="form-select"
+              formControlName="pageSize"
+              (change)="changePageSize($event)"
+            >
+              <option value="">Page Size</option>
+              <ng-container *ngFor="let dd of dropdown">
+                <option *ngIf="dd.pageSize <= pagination.totalItems">
+                  {{ dd.pageSize }}
+                </option>
+              </ng-container>
+            </select>
+            <div
+              class="mb-2 error-block"
+              *ngIf="submitted && handleErrorDropDown('pageSize', 'required')"
+            >
+              You must provide a value!
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </ng-container>

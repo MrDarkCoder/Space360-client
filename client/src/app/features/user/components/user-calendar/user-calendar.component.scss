@@ -1,0 +1,78 @@
+::ng-deep .fc-header-toolbar {
+  background-color: #50c878;
+  height: 50px;
+  color: white;
+}
+
+::ng-deep .fc .fc-datagrid-cell-cushion {
+  color: black;
+  text-align: center;
+  height: 5rem;
+  padding: 2rem;
+}
+
+::ng-deep .fc-datagrid-cell-main {
+  text-align: center;
+}
+::ng-deep .fc-license-message {
+  display: none;
+}
+
+::ng-deep .fc.fc-theme-standard a {
+  font-size: 17px;
+  color: white;
+  text-decoration: none;
+}
+::ng-deep .fc .fc-datagrid-header .fc-datagrid-cell-frame {
+  background-color: black;
+  color: white;
+  justify-content: center;
+}
+
+::ng-deep
+  .fc
+  .fc-datagrid-header
+  .fc-datagrid-cell-frame
+  .fc-datagrid-cell-main {
+  color: white;
+}
+
+// timeline header
+::ng-deep .fc .fc-timeline-slot-frame {
+  background-color: black;
+}
+
+//time line header
+::ng-deep .fc .fc-timeline-header-row-chrono .fc-timeline-slot-frame {
+  justify-content: center;
+}
+
+::ng-deep
+  .fc-datagrid-cell-cushion
+  .fc-scrollgrid-sync-inner
+  .fc-datagrid-cell-main {
+  text-align: center;
+}
+
+::ng-deep .fc.fc-media-screen.fc-direction-ltr.fc-theme-standard {
+  background: #ffffff;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 25%);
+}
+
+::ng-deep .fc.fc-theme-standard .fc-view-harness th {
+  color: black;
+}
+
+::ng-deep body .fc.fc-theme-standard .fc-view-harness .fc-scrollgrid {
+  border: none;
+}
+
+//Event
+::ng-deep body .fc .fc-timeline-event .fc-event-main .fc-sticky {
+  font-size: 1rem;
+}
+
+::ng-deep body .fc .fc-timeline-event .fc-event-main .fc-event-title-container {
+  height: 1.5rem;
+  border-radius: 15%;
+}

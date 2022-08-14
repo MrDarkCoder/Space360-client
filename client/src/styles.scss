@@ -386,3 +386,127 @@ textarea.form-control-lg {
   background-color: rgba(98, 252, 132, 0.5);
   color: #018508;
 }
+
+.p-organizationchart {
+  .p-component,
+  .p-component * {
+    width: max-content;
+  }
+
+  .p-person {
+    background: #a8ff78; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to bottom,
+      #78ffd6,
+      #a8ff78
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to bottom,
+      #78ffd6,
+      #a8ff78
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #000;
+    font-weight: 700;
+  }
+  .node-header,
+  .node-content {
+    padding: 0.5em 0.7rem;
+  }
+
+  .node-header {
+    background-color: #495ebb !important;
+    color: #ffffff;
+  }
+
+  .node-content {
+    text-align: center;
+    border: 1px solid #495ebb;
+  }
+
+  .node-content img {
+    border-radius: 50%;
+  }
+
+  .department-cfo {
+    background: #a8ff78; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to top,
+      #78ffd6,
+      #a8ff78
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to top,
+      #78ffd6,
+      #a8ff78
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    color: #000;
+    font-weight: 700;
+  }
+
+  .department-coo {
+    background-color: #a534b6;
+    color: #ffffff;
+  }
+
+  .department-cto {
+    background-color: #e9286f;
+    color: #ffffff;
+  }
+
+  .p-subteam {
+    background: #a8ff78; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to bottom,
+      #78ffd6,
+      #a8ff78
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to bottom,
+      #78ffd6,
+      #a8ff78
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    color: #000;
+    font-weight: 700;
+  }
+  .p-users {
+    background: #a8ff78; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to top,
+      #78ffd6,
+      #a8ff78
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to top,
+      #78ffd6,
+      #a8ff78
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    color: #000;
+    font-weight: 700;
+  }
+}
+
+.p-organizationchart .p-organizationchart-node-content {
+  // border: none;
+  border-radius: 0.8rem;
+  // box-shadow: 0 0.1rem 0.7rem rgba(108, 219, 147, 0.2);
+  transition: box-shadow 0.3s ease-in-out;
+  &:hover {
+    box-shadow: 0 0.1rem 0.7rem rgba(7, 15, 10, 0.2);
+  }
+}
+
+.p-organizationchart .p-organizationchart-node-content .p-node-toggler {
+  background: #fff;
+  font-weight: 600;
+  box-shadow: 0 0.1rem 0.7rem rgba(0, 0, 0, 0.2);
+}
+
+.p-autocomplete {
+  width: 100%;
+  & .p-autocomplete-multiple-container {
+    width: 100%;
+  }
+}

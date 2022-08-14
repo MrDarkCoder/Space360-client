@@ -39,7 +39,20 @@ export class TeamService {
       .get(this.baseUrl + 'team/get-subteams-by-teamid?', { params: params })
       .pipe(
         map((response) => {
-          console.log('[API - /subTeambyTeamId]', response);
+          // console.log('[API - /subTeambyTeamId]', response);
+          return response;
+        })
+      );
+  }
+
+  getTeamMembers(id: number) {
+    let params = new HttpParams();
+    params = params.append('mainTeamId', id.toString());
+    return this.http
+      .get(this.baseUrl + 'user/get-users-by-teamid?', { params: params })
+      .pipe(
+        map((response) => {
+          console.log('[API - /members]', response);
           return response;
         })
       );
