@@ -11,6 +11,7 @@ import { UserSideNavComponent } from './components/user-side-nav/user-side-nav.c
 import { UserSpaceListComponent } from './components/user-space/user-space-list/user-space-list.component';
 import { UserSpaceDetailComponent } from './components/user-space/user-space-detail/user-space-detail.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { UserReservationListComponent } from './components/user-reservation-list/user-reservation-list.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     UserSideNavComponent,
     UserSpaceListComponent,
     UserSpaceDetailComponent,
+    UserReservationListComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [CommonModule, UserRoutingModule, SharedModule],

@@ -1,1 +1,58 @@
-<p>user-space-list works!</p>
+<div class="w-100 register-container p-0 m-0">
+  <div class="row text-uppercase">
+    <h3>Spaces</h3>
+  </div>
+  <div class="row">
+    <div
+      style="min-height: 53.5rem; box-shadow: none"
+      class="col-12 d-flex flex-wrap justify-content-between"
+    >
+      <ng-container *ngIf="spaces.length > 0">
+        <ng-container *ngFor="let space of spaces">
+          <div class="card">
+            <div class="img-conatiner">
+              <img
+                class="rounded-5"
+                src="{{ space.imageUrl }}"
+                alt="{{ space.spaceName }}"
+              />
+            </div>
+            <div class="card-body mt-2 w-100">
+              <h3>{{ space.spaceName }}</h3>
+              <h5>{{ space.spaceCategory.spaceCategoryName }}</h5>
+              <div class="actions mt-3">
+                <button
+                  type="button"
+                  (click)="movetoreservation()"
+                  class="btn w-50 button"
+                >
+                  Book Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="col-12 px-3">
+          <div
+            *ngIf="pagination"
+            class="d-flex justify-content-center align-items-center"
+          >
+            <pagination
+              [boundaryLinks]="true"
+              [totalItems]="pagination.totalItems"
+              [itemsPerPage]="pagination.itemsPerPage"
+              [(ngModel)]="pagination.currentPage"
+              (pageChanged)="nextPage($event)"
+              previousText="&lsaquo;"
+              nextText="&rsaquo;"
+              firstText="&laquo;"
+              lastText="&raquo;"
+            >
+            </pagination>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="h-100">
+  <ng-container>
+    <div style="cursor: pointer" class="row">
+      <p-table
+        dataKey="id"
+        [value]="reservations"
+        [rowHover]="true"
+        responsiveLayout="scroll"
+        [rows]="10"
+        [totalRecords]="20"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Title</th>
+            <th>Space</th>
+            <th>Starts At</th>
+            <th>Ends At</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-reserve>
+          <tr>
+            <td>{{ reserve.title }}</td>
+            <td>{{ reserve.spaceName }}</td>
+            <td>{{ reserve.startsAt }}</td>
+            <td>{{ reserve.closesAt | date: "hh:mm a" }}</td>
+            <td>{{ reserve.status }}</td>
+            <!-- <td>
+              <span [class]="'space-badge status-' + space.status.statusName">{{
+                space.status.statusName
+              }}</span>
+            </td> -->
+            <td>
+              <button class="btn btn-sm border-0 bd">
+                <!-- (click)="moveToSpaceDetail(space.spaceName)" -->
+                <i class="bi bi-pencil-square"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="row px-3">
+      <div class="d-flex justify-content-center align-items-center">
+        <!-- *ngIf="pagination" -->
+        <!-- <pagination
+          [boundaryLinks]="true"
+          [totalItems]="pagination.totalItems"
+          [itemsPerPage]="pagination.itemsPerPage"
+          [(ngModel)]="pagination.currentPage"
+          (pageChanged)="nextPage($event)"
+          previousText="&lsaquo;"
+          nextText="&rsaquo;"
+          firstText="&laquo;"
+          lastText="&raquo;"
+        >
+        </pagination> -->
+      </div>
+    </div>
+  </ng-container>
+</div>

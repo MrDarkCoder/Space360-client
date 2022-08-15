@@ -26,14 +26,19 @@ const sidebarData = [
     label: 'Calendar',
   },
   {
+    routerLink: '/user/space',
+    icon: 'bi bi-journal-album',
+    label: 'Space',
+  },
+  {
     routerLink: '/user/reserve',
     icon: 'bi bi-journal-album',
     label: 'Reserve',
   },
   {
-    routerLink: '/user/space',
+    routerLink: '/user/reservations',
     icon: 'bi bi-journal-album',
-    label: 'Space',
+    label: 'My Reservations',
   },
 ];
 

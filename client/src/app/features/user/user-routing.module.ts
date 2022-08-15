@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserCalendarComponent } from './components/user-calendar/user-calendar.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { UserLayoutComponent } from './components/user-layout/user-layout.component';
+import { UserReservationListComponent } from './components/user-reservation-list/user-reservation-list.component';
 import { UserReservationComponent } from './components/user-reservation/user-reservation.component';
 import { UserSpaceDetailComponent } from './components/user-space/user-space-detail/user-space-detail.component';
 import { UserSpaceListComponent } from './components/user-space/user-space-list/user-space-list.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'dashboard', component: UserDashboardComponent },
       { path: 'calendar', component: UserCalendarComponent },
       { path: 'reserve', component: UserReservationComponent },
+      { path: 'reservations', component: UserReservationListComponent },
       { path: 'space', component: UserSpaceListComponent },
       {
         path: 'space/:spacename',
