@@ -13,28 +13,36 @@
           <tr>
             <th>Title</th>
             <th>Space</th>
+            <th>invited</th>
+            <th>Accepted</th>
             <th>Starts At</th>
             <th>Ends At</th>
             <th>Status</th>
             <th></th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-reserve>
+
+        <ng-template #data pTemplate="body" let-reserve>
           <tr>
-            <td>{{ reserve.title }}</td>
-            <td>{{ reserve.spaceName }}</td>
-            <td>{{ reserve.startsAt }}</td>
-            <td>{{ reserve.closesAt | date: "hh:mm a" }}</td>
-            <td>{{ reserve.status }}</td>
+            <td>{{ reserve.reservationTitle }}</td>
+            <td>{{ reserve.reservedSpace.spaceName }}</td>
+            <td>{{ reserve.invitedCount }}</td>
+            <td>{{ reserve.acceptedCount }}</td>
+            <td>{{ utc(reserve.startsAt).local() | date: "hh:mm a" }}</td>
+            <td>{{ utc(reserve.endsAt).local() | date: "hh:mm a" }}</td>
+            <td>{{ reserve.status.statusName }}</td>
             <!-- <td>
               <span [class]="'space-badge status-' + space.status.statusName">{{
                 space.status.statusName
               }}</span>
             </td> -->
             <td>
-              <button class="btn btn-sm border-0 bd">
-                <!-- (click)="moveToSpaceDetail(space.spaceName)" -->
-                <i class="bi bi-pencil-square"></i>
+              <button
+                [disabled]="reserve.isCancelled && reserve.status.statusName"
+                class="btn btn-sm border-0 bd"
+                (click)="clicked(reserve.reservationId)"
+              >
+                <i style="font-size: 1.2rem" class="bi bi-x-circle-fill"></i>
               </button>
             </td>
           </tr>
@@ -60,3 +68,20 @@
     </div>
   </ng-container>
 </div>
+
+<ng-container *ngIf="reservations.length <= 0">
+  <div
+    style="width: 100%"
+    class="card mt-2 d-flex align-items-center justify-content-center"
+  >
+    <img
+      style="width: 10rem; height: 10rem"
+      src="assets/images/noresult.jpg"
+      alt="no result"
+      class="image"
+    />
+    <p>No Reservation Found</p>
+
+    <button style="width: 10rem;" (click)="moveToReserv()" class="button btn btn-sm mb-4">Reserve Now</button>
+  </div>
+</ng-container>

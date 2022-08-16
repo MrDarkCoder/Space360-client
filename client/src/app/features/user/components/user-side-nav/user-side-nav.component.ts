@@ -16,19 +16,14 @@ import {
 
 const sidebarData = [
   {
-    routerLink: '/user/dashboard',
-    icon: 'bi bi-bar-chart-fill',
-    label: 'Dashboard',
+    routerLink: '/user/space',
+    icon: 'bi bi-house-fill',
+    label: 'Space',
   },
   {
     routerLink: '/user/calendar',
-    icon: 'bi bi-house-fill',
+    icon: 'bi bi-calendar-range',
     label: 'Calendar',
-  },
-  {
-    routerLink: '/user/space',
-    icon: 'bi bi-journal-album',
-    label: 'Space',
   },
   {
     routerLink: '/user/reserve',
@@ -37,7 +32,7 @@ const sidebarData = [
   },
   {
     routerLink: '/user/reservations',
-    icon: 'bi bi-journal-album',
+    icon: 'bi-journal-arrow-down',
     label: 'My Reservations',
   },
 ];

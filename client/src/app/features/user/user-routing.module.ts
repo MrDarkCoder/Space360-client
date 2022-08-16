@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from 'src/app/error/not-found/not-found.component';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 import { UserCalendarComponent } from './components/user-calendar/user-calendar.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
@@ -13,6 +15,8 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserLayoutComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
     children: [
       // {
       //   path: 'user',
@@ -27,7 +31,8 @@ const routes: Routes = [
         component: UserSpaceDetailComponent,
         pathMatch: 'full',
       },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'space', pathMatch: 'full' },
+      { path: '**', component: NotFoundComponent, pathMatch: 'full' },
       //   ],
       // },
     ],

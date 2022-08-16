@@ -1,4 +1,4 @@
-<div class="h-100">
+<div class="h-100 p-3">
   <div class="row mb-3">
     <div
       class="d-flex flex-column flex-md-row align-items-center justify-content-between"
@@ -33,7 +33,7 @@
         >
           <div class="content text-start m-0">
             <p class="de">Space Categories</p>
-            <span>02</span>
+            <span>{{ cards?.space?.totalSpaceCategory }}</span>
           </div>
           <div style="background-color: #f27b57" class="icon">
             <i class="pi pi-sitemap"></i>
@@ -51,7 +51,7 @@
         >
           <div class="content text-start m-0">
             <p class="de">Total Spaces</p>
-            <span>12</span>
+            <span>{{ cards?.space?.totalSpace }}</span>
           </div>
           <div style="background-color: #ffa726" class="icon">
             <i class="pi pi-th-large"></i>
@@ -68,7 +68,7 @@
         >
           <div class="content text-start m-0">
             <p class="de">Available Spaces</p>
-            <span>04</span>
+            <span>{{ cards?.space?.totalAvailableSpace }}</span>
           </div>
           <div style="background-color: rgba(108, 219, 147, 255)" class="icon">
             <i class="pi pi-clock"></i>
@@ -85,7 +85,7 @@
         >
           <div class="content text-start m-0">
             <p class="de">Reserved Spaces</p>
-            <span>08</span>
+            <span>{{ cards?.space?.totalReservedSpace }}</span>
           </div>
           <div style="background-color: #1363df" class="icon">
             <i class="pi pi-lock"></i>

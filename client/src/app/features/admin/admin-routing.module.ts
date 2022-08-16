@@ -15,11 +15,15 @@ import { AdminTeamCreateComponent } from './components/admin-team/admin-team-cre
 import { AdminTeamFormComponent } from './components/admin-team/admin-team-create/admin-team-form/admin-team-form.component';
 import { AdminSubteamFormComponent } from './components/admin-team/admin-team-create/admin-subteam-form/admin-subteam-form.component';
 import { AdminReservationComponent } from './components/admin-reservation/admin-reservation.component';
+import { NotFoundComponent } from 'src/app/error/not-found/not-found.component';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
     children: [
       // {
       // path: 'admin',
@@ -59,6 +63,8 @@ const routes: Routes = [
       },
 
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '**', component: NotFoundComponent, pathMatch: 'full' },
+
       //   ],
       // },
     ],

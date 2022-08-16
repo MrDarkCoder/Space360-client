@@ -26,7 +26,7 @@ export class MembersService {
           this.setCurrentUser(user);
           // routing;
           if (user.userRole == 'Admin') {
-            this.router.navigateByUrl('/admin/reservation');
+            this.router.navigateByUrl('/admin');
           } else if (user.userRole == 'User') {
             this.router.navigateByUrl('/user');
           }

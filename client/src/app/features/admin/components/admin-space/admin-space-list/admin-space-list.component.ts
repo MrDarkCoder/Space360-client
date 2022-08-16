@@ -7,6 +7,7 @@ import { Pagination } from 'src/app/models/pagination/pagination';
 import { SpaceParams } from 'src/app/models/pagination/spaceParams';
 import { Space } from 'src/app/models/space/space';
 import { SpaceService } from 'src/app/services/space.service';
+import { StatisticsService } from 'src/app/services/statistics.service';
 
 @Component({
   selector: 'app-admin-space-list',
@@ -21,6 +22,7 @@ export class AdminSpaceListComponent implements OnInit {
   cnt = 0;
   ct = 0;
   loading: boolean;
+  cards: any;
 
   dropdownForm: FormGroup;
   dropdown = [
@@ -33,13 +35,15 @@ export class AdminSpaceListComponent implements OnInit {
   constructor(
     private router: Router,
     private spaceService: SpaceService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private statService: StatisticsService
   ) {}
 
   ngOnInit(): void {
     this.loading = false;
     this.initializeForm();
     this.loadSpaces();
+    this.getCardStats();
   }
 
   initializeForm() {
@@ -103,5 +107,14 @@ export class AdminSpaceListComponent implements OnInit {
 
   moveToSpaceDetail(spacename: any) {
     console.log(spacename);
+  }
+
+  getCardStats() {
+    this.statService.getCardStats(false).subscribe({
+      next: (response) => {
+        this.cards = response;
+        console.log('[card]', response);
+      },
+    });
   }
 }

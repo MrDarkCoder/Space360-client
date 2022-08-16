@@ -31,7 +31,7 @@ export class UserReservationComponent implements OnInit {
   filteredTeammembers: any;
   spaceCategory: any;
   spaces: any;
-  reservations: any;
+  reservations = [];
 
   isSpaceAvailable = false;
 
@@ -79,8 +79,8 @@ export class UserReservationComponent implements OnInit {
       reservedTeamId: [this.currentUser.userTeamId, Validators.required],
       reservedSubTeamId: [this.currentUser.userSubTeamId, Validators.required],
       selection: ['', Validators.required],
-      spaceCategoryId: ['', Validators.required],
-      reservedSpaceId: ['', Validators.required],
+      spaceCategoryId: [0, Validators.required],
+      reservedSpaceId: [0, Validators.required],
       reservationTitle: ['', Validators.required],
       reservedByUserId: [this.currentUser.userId, Validators.required],
       reservedUsers: [[], Validators.required],
@@ -88,7 +88,7 @@ export class UserReservationComponent implements OnInit {
       isSubTeamOnly: [false, Validators.required],
       isIndividualOnly: [false, Validators.required],
       startsAt: [this.startsTime, Validators.required],
-      duration: ['', Validators.required],
+      duration: [0, Validators.required],
     });
     this.reservationForm.controls['reservedSubTeamId'].disable();
     this.reservationForm.controls['reservedUsers'].disable();
@@ -194,6 +194,8 @@ export class UserReservationComponent implements OnInit {
   checkSpaceAvailability() {
     let d = new Date(this.reservationForm.value.startsAt).toISOString();
 
+    console.log('[checker]', this.reservationForm.value);
+
     this.reservationService
       .chechSpaceAvailability(this.reservationForm.value)
       .subscribe({
@@ -215,7 +217,7 @@ export class UserReservationComponent implements OnInit {
 
   getReservedTimingsOfSpace(id: number) {
     this.spaceService.getReservedTimings(id, '').subscribe({
-      next: (response) => {
+      next: (response: any) => {
         console.log('[timings]', response);
         this.reservations = response;
       },
@@ -227,9 +229,21 @@ export class UserReservationComponent implements OnInit {
       this.reservationForm.value.startsAt
     ).toISOString();
 
-    console.log(this.reservationForm.value.startsAt);
+    let d = {
+      ...this.reservationForm.value,
+    };
 
-    this.reservationService.reserve(this.reservationForm.value).subscribe({
+    if (this.reservationForm.value.selection != 'subteam') {
+      d = {
+        ...d,
+        reservedTeamId: this.currentUser.userTeamId,
+        reservedSubTeamId: this.currentUser.userSubTeamId,
+      };
+    }
+
+    console.log('[reser]', d);
+
+    this.reservationService.reserve(d).subscribe({
       next: (response: any) => {
         console.log(response);
         this.toastr.success(response.message);

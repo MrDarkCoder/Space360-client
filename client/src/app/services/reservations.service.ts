@@ -26,7 +26,15 @@ export class ReservationsService {
   }
 
   getAllReservations() {
-    return this.http.get(this.baseUrl + 'reservation/resers').pipe(
+    return this.http.get(this.baseUrl + 'reservation/all-reservations').pipe(
+      map((response) => {
+        return response;
+      })
+    );
+  }
+
+  getReservationByUser(id: number) {
+    return this.http.get(this.baseUrl + 'reservation/' + id).pipe(
       map((response) => {
         return response;
       })

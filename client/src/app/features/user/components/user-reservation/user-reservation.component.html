@@ -26,7 +26,7 @@
                   <option disabled value="">Space Category..</option>
                   <option
                     *ngFor="let element of spaceCategory"
-                    value="{{ element.spaceCategoryId }}"
+                    value="{{ +element.spaceCategoryId }}"
                   >
                     {{ element.spaceCategoryName }}
                   </option>
@@ -107,7 +107,7 @@
                   <option disabled value="">Chose Sub Team..</option>
                   <option
                     *ngFor="let element of subTeams"
-                    value="{{ element.subTeamId }}"
+                    [ngValue]="+element.subTeamId"
                   >
                     {{ element.subTeamName }}
                   </option>
@@ -153,9 +153,9 @@
                   class="form-control form-select rounded-0"
                   formControlName="duration"
                 >
-                  <option value="30">30 mins</option>
-                  <option value="45">45 mins</option>
-                  <option value="60">60 mins</option>
+                  <option [ngValue]="30">30 mins</option>
+                  <option [ngValue]="45">45 mins</option>
+                  <option [ngValue]="60">60 mins</option>
                 </select>
               </div>
 
@@ -209,6 +209,21 @@
                   </tr>
                 </ng-template>
               </p-table>
+            </ng-container>
+
+            <ng-container *ngIf="reservations.length <= 0">
+              <div
+                style="width: 100%"
+                class="card mt-2 d-flex align-items-center justify-content-center"
+              >
+                <img
+                  style="width: 10rem; height: 10rem"
+                  src="assets/images/noresult.jpg"
+                  alt="no result"
+                  class="image"
+                />
+                <p>No Reservation Found, Make a Reservation</p>
+              </div>
             </ng-container>
           </div>
         </div>
