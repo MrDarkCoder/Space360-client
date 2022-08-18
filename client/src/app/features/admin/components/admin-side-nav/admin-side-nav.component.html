@@ -1,10 +1,24 @@
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
-  <div class="logo-container">
-    <button class="logo m-0" (click)="toggleCollapse()">S</button>
-    <div class="logo-text" *ngIf="collapsed">Space<span>360</span></div>
-    <button class="b-close" (click)="closeSidenav()" *ngIf="collapsed">
-      <i class="bi bi-x-lg close-icon"></i>
-    </button>
+  <div>
+    <div class="logo-container">
+      <button class="logo m-0" (click)="toggleCollapse()">S</button>
+      <div class="logo-text" *ngIf="collapsed">Space<span>360</span></div>
+      <button class="b-close" (click)="closeSidenav()" *ngIf="collapsed">
+        <i class="bi bi-x-lg close-icon"></i>
+      </button>
+    </div>
+
+    <div class="profile-contianer text-white">
+      <img class="mb-2" src="assets/images/man.png" alt="user" />
+      <div @fadeInOut class="delay text-center" *ngIf="collapsed">
+        <h5 class="">
+          {{ currentUser.firstName | titlecase }}
+          {{ currentUser.lastName | titlecase }}
+        </h5>
+        <p class="m-0 p-0 h5">{{ currentUser.teamName }}</p>
+        <p class="m-0 mt-2 text-muted p-0 h6">{{ currentUser.subteamName }}</p>
+      </div>
+    </div>
   </div>
 
   <ul class="sidenav-nav">
@@ -26,7 +40,7 @@
           data.label
         }}</span>
       </a>
-    </li> 
+    </li>
   </ul>
 
   <div class="logo-container logout-container">

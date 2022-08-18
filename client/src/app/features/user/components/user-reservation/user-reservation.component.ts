@@ -10,6 +10,7 @@ import { MembersService } from 'src/app/services/members.service';
 import { ReservationsService } from 'src/app/services/reservations.service';
 import { SpaceService } from 'src/app/services/space.service';
 import { TeamService } from 'src/app/services/team.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-reservation',
@@ -41,7 +42,8 @@ export class UserReservationComponent implements OnInit {
     private memberService: MembersService,
     private teamService: TeamService,
     private spaceService: SpaceService,
-    private reservationService: ReservationsService
+    private reservationService: ReservationsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -248,6 +250,7 @@ export class UserReservationComponent implements OnInit {
         console.log(response);
         this.toastr.success(response.message);
         // move to calendar page
+        this.router.navigate(['user/calendar']);
       },
     });
   }

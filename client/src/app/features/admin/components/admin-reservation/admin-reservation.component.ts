@@ -5,6 +5,7 @@ import { ReservationsService } from 'src/app/services/reservations.service';
 import { StatisticsService } from 'src/app/services/statistics.service';
 
 import { utc } from 'moment';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-reservation',
@@ -20,14 +21,24 @@ export class AdminReservationComponent implements OnInit {
 
   utc = utc;
 
+  dropdownForm: FormGroup;
+  dropdown = [
+    { id: 1, pageSize: 3 },
+    { id: 2, pageSize: 5 },
+    { id: 3, pageSize: 15 },
+    { id: 4, pageSize: 25 },
+  ];
+
   constructor(
     private reservationsService: ReservationsService,
-    private statService: StatisticsService
+    private statService: StatisticsService,
+    private fb: FormBuilder
   ) {}
 
   // labels: ['Elon Musk', 'Silicon Valley', 'Training Hall', 'New York'],
   // data: [65, 59, 80, 81],
   ngOnInit(): void {
+    this.loadSpaceBarChart(false);
     this.loadReservations();
     this.basicOptions = {
       plugins: {
@@ -59,8 +70,30 @@ export class AdminReservationComponent implements OnInit {
         },
       },
     };
+    this.initializeForm();
+  }
 
-    this.loadSpaceBarChart();
+  initializeForm() {
+    this.dropdownForm = this.fb.group({
+      pageSize: [this.reserParams.pageSize, Validators.required],
+    });
+  }
+
+  changePageSize(event: any) {
+    this.dropdownForm.get('pageSize').setValue(event.target.value, {
+      onlySelf: true,
+    });
+    this.reserParams.pageSize = this.dropdownForm.value.pageSize;
+    this.loadReservations();
+    console.log(this.dropdownForm.value);
+  }
+
+  handleErrorDropDown = (controlName: string, errorName: string) => {
+    return this.dropdownForm.controls[controlName].hasError(errorName);
+  };
+
+  onSubmit() {
+    console.log('new page size', this.dropdownForm.value);
   }
 
   nextPage(event: any) {
@@ -80,8 +113,8 @@ export class AdminReservationComponent implements OnInit {
     });
   }
 
-  loadSpaceBarChart() {
-    this.statService.getSpaceBarStats().subscribe({
+  loadSpaceBarChart(isRefresh: boolean) {
+    this.statService.getSpaceBarStats(isRefresh).subscribe({
       next: (response: any) => {
         console.log('[stats] ', response);
 
@@ -119,5 +152,10 @@ export class AdminReservationComponent implements OnInit {
         });
       },
     });
+  }
+
+  refresh() {
+    this.loadSpaceBarChart(true);
+    // this.loadReservations();
   }
 }

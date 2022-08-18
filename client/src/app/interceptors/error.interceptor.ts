@@ -39,8 +39,8 @@ export class ErrorInterceptor implements HttpInterceptor {
               break;
 
             case 401:
-              this.toastr.error(error.status, error.error);
-              // console.log(error);
+              this.toastr.error(error.error.message);
+              console.log(error.error.message, error.status);
               break;
 
             case 404:

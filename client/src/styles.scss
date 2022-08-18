@@ -493,8 +493,9 @@ textarea.form-control-lg {
   border-radius: 0.8rem;
   // box-shadow: 0 0.1rem 0.7rem rgba(108, 219, 147, 0.2);
   transition: box-shadow 0.3s ease-in-out;
+  box-shadow: 0 0.1rem 0.7rem rgba(7, 15, 10, 0.3);
   &:hover {
-    box-shadow: 0 0.1rem 0.7rem rgba(7, 15, 10, 0.2);
+    box-shadow: 0 0.1rem 0.7rem rgba(7, 15, 10, 0.5);
   }
 }
 

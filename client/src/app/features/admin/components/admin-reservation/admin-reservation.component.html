@@ -1,4 +1,16 @@
 <div class="px-3">
+  <div class="row">
+    <div class="d-flex justify-content-end">
+      <button
+        (click)="refresh()"
+        style="width: 10rem"
+        class="btn button bt me-3"
+      >
+        <i class="bi bi-arrow-clockwise"></i>
+        <span>Refresh</span>
+      </button>
+    </div>
+  </div>
   <div class="row mb-5">
     <div class="col-12">
       <ng-container *ngIf="basicData?.labels.length > 0">
@@ -44,8 +56,8 @@
                 </th>
                 <th>Invited</th>
                 <th>Accepted</th>
-                <th pSortableColumn="status">
-                  Status<p-sortIcon field="status"></p-sortIcon>
+                <th pSortableColumn="status.statusName">
+                  Status<p-sortIcon field="status.statusName"></p-sortIcon>
                 </th>
                 <!-- <th>Detail</th> -->
               </tr>
@@ -107,6 +119,35 @@
           lastText="&raquo;"
         >
         </pagination>
+
+        <form
+          [formGroup]="dropdownForm"
+          autocomplete="off"
+          (submit)="onSubmit()"
+          class="row"
+          *ngIf="pagination.currentPage == 1"
+        >
+          <div class="form-group">
+            <select
+              class="form-select"
+              formControlName="pageSize"
+              (change)="changePageSize($event)"
+            >
+              <option value="">Page Size</option>
+              <ng-container *ngFor="let dd of dropdown">
+                <option *ngIf="dd.pageSize <= pagination.totalItems">
+                  {{ dd.pageSize }}
+                </option>
+              </ng-container>
+            </select>
+            <div
+              class="mb-2 error-block"
+              *ngIf="submitted && handleErrorDropDown('pageSize', 'required')"
+            >
+              You must provide a value!
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </ng-container>

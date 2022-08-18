@@ -30,8 +30,9 @@ export class MembersService {
           } else if (user.userRole == 'User') {
             this.router.navigateByUrl('/user');
           }
+          return response;
         }
-        return response;
+        return null;
       })
     );
   }
@@ -75,5 +76,10 @@ export class MembersService {
         return response;
       })
     );
+  }
+  logout() {
+    localStorage.removeItem('user');
+    this.currentUser.next(null);
+    this.router.navigate(['/']);
   }
 }

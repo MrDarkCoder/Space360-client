@@ -7,6 +7,7 @@ import { User } from 'src/app/models/users/User';
 import { MembersService } from 'src/app/services/members.service';
 import { ReservationsService } from 'src/app/services/reservations.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-reservation-list',
@@ -22,7 +23,8 @@ export class UserReservationListComponent implements OnInit {
   constructor(
     private reservationService: ReservationsService,
     private memberService: MembersService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -36,7 +38,7 @@ export class UserReservationListComponent implements OnInit {
 
   getReservationsByUser() {
     this.reservationService
-      .getReservationByUser(this.currentUser.userId)
+      .getReservationByUser(this.currentUser.userId, false)
       .subscribe({
         next: (response: any) => {
           console.log('[COMP] user-rev-list', response);
@@ -47,11 +49,27 @@ export class UserReservationListComponent implements OnInit {
 
   clicked(event: any) {
     console.log('[clicked]', event);
+    this.reservationService.cancelReservationByUser(event).subscribe({
+      next: (response: any) => {
+        this.toastr.success(response);
+      },
+    });
   }
 
   moveToReserv() {
     this.router.navigateByUrl('user/reserve');
     // console.log('[clicked]');
+  }
+
+  refreshTable() {
+    this.reservationService
+      .getReservationByUser(this.currentUser.userId, true)
+      .subscribe({
+        next: (response: any) => {
+          console.log('[COMP] user-rev-list', response);
+          this.reservations = response;
+        },
+      });
   }
 }
 

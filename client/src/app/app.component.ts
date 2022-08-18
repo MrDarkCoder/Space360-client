@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { User } from './models/users/User';
 import { MembersService } from './services/members.service';
 
+// console.log = () => {};
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

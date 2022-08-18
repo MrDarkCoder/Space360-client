@@ -17,6 +17,8 @@ import { AdminSubteamFormComponent } from './components/admin-team/admin-team-cr
 import { AdminReservationComponent } from './components/admin-reservation/admin-reservation.component';
 import { NotFoundComponent } from 'src/app/error/not-found/not-found.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { HomeComponent } from 'src/app/shared/components/home/home.component';
+import { AdminGuard } from 'src/app/guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -24,10 +26,8 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
+    data: { roles: ['Admin'] },
     children: [
-      // {
-      // path: 'admin',
-      // children: [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'reservation', component: AdminReservationComponent },
       { path: 'space', component: AdminSpaceListComponent },
@@ -61,19 +61,65 @@ const routes: Routes = [
           { path: '', redirectTo: 'team-form', pathMatch: 'full' },
         ],
       },
-
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: '**', component: NotFoundComponent, pathMatch: 'full' },
-
-      //   ],
-      // },
     ],
   },
   { path: '', redirectTo: 'admin', pathMatch: 'full' },
+  { path: '**', component: NotFoundComponent, pathMatch: 'full' },
+];
+
+const rot: Routes = [
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [
+      {
+        path: 'admin',
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthGuard, AdminGuard],
+        children: [
+          { path: 'dashboard', component: AdminDashboardComponent },
+          { path: 'reservation', component: AdminReservationComponent },
+          { path: 'space', component: AdminSpaceListComponent },
+          {
+            path: 'space/create',
+            component: AdminSpaceCreateComponent,
+            children: [
+              { path: 'space-form', component: AdminSpaceFormComponent },
+              {
+                path: 'space-category-form',
+                component: AdminSpaceCategoryFormComponent,
+              },
+              { path: '', redirectTo: 'space-form', pathMatch: 'full' },
+            ],
+          },
+          {
+            path: 'space/:spacename',
+            component: AdminSpaceDetailComponent,
+            pathMatch: 'full',
+          },
+          {
+            path: 'team',
+            component: AdminTeamListComponent,
+          },
+          {
+            path: 'team/create',
+            component: AdminTeamCreateComponent,
+            children: [
+              { path: 'team-form', component: AdminTeamFormComponent },
+              { path: 'sub-team-form', component: AdminSubteamFormComponent },
+              { path: '', redirectTo: 'team-form', pathMatch: 'full' },
+            ],
+          },
+          { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+          { path: '**', component: NotFoundComponent, pathMatch: 'full' },
+        ],
+      },
+    ],
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(rot)],
   exports: [RouterModule],
 })
 export class AdminRoutingModule {}

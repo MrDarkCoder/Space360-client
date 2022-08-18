@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PaginatedResult } from '../models/pagination/pagination';
 import { ReserParams } from '../models/pagination/reserParams';
@@ -12,6 +12,8 @@ export class ReservationsService {
   baseUrl = environment.apiUrl;
 
   reservations: any;
+
+  userReservation: any;
 
   constructor(private http: HttpClient) {}
 
@@ -33,9 +35,13 @@ export class ReservationsService {
     );
   }
 
-  getReservationByUser(id: number) {
+  getReservationByUser(id: number, isRefresh: boolean) {
+    if (this.userReservation && !isRefresh) {
+      return of(this.userReservation);
+    }
     return this.http.get(this.baseUrl + 'reservation/' + id).pipe(
       map((response) => {
+        this.userReservation = response;
         return response;
       })
     );
@@ -56,6 +62,18 @@ export class ReservationsService {
       .pipe(
         map((response) => {
           console.log(response);
+          return response;
+        })
+      );
+  }
+
+  cancelReservationByUser(id: number) {
+    return this.http
+      .get(this.baseUrl + 'reservation/cancel-reservation/' + id)
+      .pipe(
+        map((response) => {
+          console.log(response);
+
           return response;
         })
       );

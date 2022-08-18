@@ -38,12 +38,15 @@ export class ForgetPasswordResetFormComponent implements OnInit {
           };
     };
   }
-
+  // 564355
   initializeForm() {
     this.resetForm = this.fb.group({
       otp: ['', Validators.required],
       password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
+      confirmPassword: [
+        '',
+        [Validators.required, this.matchValues('password')],
+      ],
     });
     // when password changes - confirm password should reflect
     this.resetForm.controls['password'].valueChanges.subscribe(() => {

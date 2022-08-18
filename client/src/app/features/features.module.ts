@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
 import { UserModule } from './user/user.module';
+import { FeaturesRoutingModule } from './features-routing.module';
 
 @NgModule({
   declarations: [],
@@ -17,6 +18,7 @@ import { UserModule } from './user/user.module';
     AdminModule,
     UserModule,
     BrowserAnimationsModule,
+    FeaturesRoutingModule,
   ],
 })
 export class FeaturesModule {}

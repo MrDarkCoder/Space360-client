@@ -13,6 +13,8 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { MembersService } from 'src/app/services/members.service';
+import { User } from 'src/app/models/users/User';
 
 const sidebarData = [
   {
@@ -45,7 +47,7 @@ const sidebarData = [
     trigger('fadeInOut', [
       transition(':enter', [
         style({ opacity: 0 }),
-        animate('350ms', style({ opacity: 1 })),
+        animate('450ms', style({ opacity: 1 })),
       ]),
       transition(':leave', [
         style({ opacity: 1 }),
@@ -71,6 +73,8 @@ export class AdminSideNavComponent implements OnInit {
   screenWidth = 0;
   navData = sidebarData;
 
+  currentUser: User;
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.screenWidth = window.innerWidth;
@@ -83,10 +87,13 @@ export class AdminSideNavComponent implements OnInit {
     }
   }
 
-  constructor() {}
+  constructor(private memberService: MembersService) {}
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
+    this.memberService.currentUser$.subscribe(
+      (user) => (this.currentUser = user)
+    );
   }
 
   toggleCollapse(): void {
@@ -107,5 +114,6 @@ export class AdminSideNavComponent implements OnInit {
 
   logOut() {
     console.log('logged out');
+    this.memberService.logout();
   }
 }

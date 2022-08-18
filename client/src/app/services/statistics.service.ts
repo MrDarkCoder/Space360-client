@@ -17,11 +17,17 @@ export class StatisticsService {
 
   teamBarData: any;
 
+  spaceBarChart: any;
+
   constructor(private http: HttpClient) {}
 
-  getSpaceBarStats() {
+  getSpaceBarStats(isRefresh: boolean) {
+    if (this.spaceBarChart && !isRefresh) {
+      return of(this.spaceBarChart);
+    }
     return this.http.get(this.baseUrl + 'statistics/get-space-bar-stats').pipe(
       map((response) => {
+        this.spaceBarChart = response;
         return response;
       })
     );

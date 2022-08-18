@@ -13,6 +13,8 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { MembersService } from 'src/app/services/members.service';
+import { User } from 'src/app/models/users/User';
 
 const sidebarData = [
   {
@@ -71,6 +73,8 @@ export class UserSideNavComponent implements OnInit {
   screenWidth = 0;
   navData = sidebarData;
 
+  currentUser: User;
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.screenWidth = window.innerWidth;
@@ -83,10 +87,13 @@ export class UserSideNavComponent implements OnInit {
     }
   }
 
-  constructor() {}
+  constructor(private memberService: MembersService) {}
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
+    this.memberService.currentUser$.subscribe(
+      (user) => (this.currentUser = user)
+    );
   }
 
   toggleCollapse(): void {
@@ -107,5 +114,6 @@ export class UserSideNavComponent implements OnInit {
 
   logOut() {
     console.log('logged out');
+    this.memberService.logout();
   }
 }

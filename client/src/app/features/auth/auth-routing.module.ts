@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoggedInAuthGuardGuard } from 'src/app/guards/logged-in-auth-guard.guard';
 import { HomeComponent } from 'src/app/shared/components/home/home.component';
 import { ForgetPasswordResetFormComponent } from './components/forget-password/forget-password-reset-form/forget-password-reset-form.component';
 import { ForgetPasswordTextFormComponent } from './components/forget-password/forget-password-text-form/forget-password-text-form.component';
@@ -12,10 +13,15 @@ import { VerificationComponent } from './components/register/verification/verifi
 // need to write gaurd to back to home
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [LoggedInAuthGuardGuard],
+  },
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [LoggedInAuthGuardGuard],
     children: [
       { path: 'register-form', component: RegisterFormComponent },
       { path: 'verification', component: VerificationComponent },
@@ -41,7 +47,12 @@ const routes: Routes = [
       },
     ],
   },
-  { path: '', component: HomeComponent },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [LoggedInAuthGuardGuard],
+  },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
 
 @NgModule({

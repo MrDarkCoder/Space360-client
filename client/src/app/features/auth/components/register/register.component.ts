@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.items = [
       {
-        label: 'Registeration',
+        label: 'Registration',
         routerLink: 'register-form',
       },
       {

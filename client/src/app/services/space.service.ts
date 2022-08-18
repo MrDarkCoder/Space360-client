@@ -12,7 +12,7 @@ import { Space } from '../models/space/space';
 export class SpaceService {
   baseUrl = environment.apiUrl;
 
-  spaces: Space[] = [];
+  // spaces: Space[];
 
   constructor(private http: HttpClient) {}
 
@@ -76,7 +76,7 @@ export class SpaceService {
         params: params,
       })
       .pipe(
-        map((response) => {
+        map((response: any) => {
           return response;
         })
       );

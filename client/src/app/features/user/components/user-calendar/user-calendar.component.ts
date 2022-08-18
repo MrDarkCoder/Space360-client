@@ -37,6 +37,8 @@ export class UserCalendarComponent implements OnInit {
     this.spaceService.getAllSpaces().subscribe({
       next: (response) => {
         this.space = response;
+        this.formatResource(this.space);
+        console.log('[space calender]', response);
       },
     });
   }
@@ -44,6 +46,7 @@ export class UserCalendarComponent implements OnInit {
     this.reservationService.getAllReservations().subscribe({
       next: (response) => {
         this.formatEvents(response);
+        console.log('[calender]', response);
       },
     });
   }

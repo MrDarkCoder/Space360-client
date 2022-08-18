@@ -18,30 +18,42 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      // {
-      //   path: 'user',
-      //   children: [
       { path: 'dashboard', component: UserDashboardComponent },
       { path: 'calendar', component: UserCalendarComponent },
       { path: 'reserve', component: UserReservationComponent },
       { path: 'reservations', component: UserReservationListComponent },
       { path: 'space', component: UserSpaceListComponent },
-      {
-        path: 'space/:spacename',
-        component: UserSpaceDetailComponent,
-        pathMatch: 'full',
-      },
       { path: '', redirectTo: 'space', pathMatch: 'full' },
       { path: '**', component: NotFoundComponent, pathMatch: 'full' },
-      //   ],
-      // },
     ],
   },
   { path: '', redirectTo: 'user', pathMatch: 'full' },
 ];
 
+const rot: Routes = [
+  {
+    path: '',
+    component: UserLayoutComponent,
+    children: [
+      {
+        path: 'user',
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthGuard],
+        children: [
+          { path: 'calendar', component: UserCalendarComponent },
+          { path: 'reserve', component: UserReservationComponent },
+          { path: 'reservations', component: UserReservationListComponent },
+          { path: 'space', component: UserSpaceListComponent },
+          { path: '', redirectTo: 'space', pathMatch: 'full' },
+          { path: '**', component: NotFoundComponent, pathMatch: 'full' },
+        ],
+      },
+    ],
+  },
+];
+
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(rot)],
   exports: [RouterModule],
 })
 export class UserRoutingModule {}

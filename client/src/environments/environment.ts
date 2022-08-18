@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:7101/api/',
+  apiUrl: 'https://space360.azurewebsites.net/api/',
+  // apiUrl: 'https://localhost:7101/api/',
 };
 
 /*

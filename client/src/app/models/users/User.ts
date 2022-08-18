@@ -6,4 +6,8 @@ export interface User {
   userRole: string;
   isVerified: boolean;
   accessToken: string;
+  teamName: string;
+  subteamName: string;
+  firstName: string;
+  lastName: string;
 }
