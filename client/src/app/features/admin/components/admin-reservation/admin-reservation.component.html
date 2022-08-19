@@ -2,6 +2,14 @@
   <div class="row">
     <div class="d-flex justify-content-end">
       <button
+        (click)="moveUserModule()"
+        style="width: 10rem"
+        class="btn button bt me-3"
+      >
+        <i class="bi bi-clock-history"></i>
+        <span>Reserve ?</span>
+      </button>
+      <button
         (click)="refresh()"
         style="width: 10rem"
         class="btn button bt me-3"
@@ -58,8 +66,8 @@
               <tr>
                 <th>Title</th>
                 <th>Team</th>
-                <th pSortableColumn="spaceName">
-                  Space<p-sortIcon field="spaceName"></p-sortIcon>
+                <th pSortableColumn="reservedSpace.spaceName">
+                  Space<p-sortIcon field="reservedSpace.spaceName"></p-sortIcon>
                 </th>
                 <th>Reserved By</th>
                 <th pSortableColumn="startsAt">

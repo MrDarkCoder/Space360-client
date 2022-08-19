@@ -52,8 +52,9 @@ export class UserReservationComponent implements OnInit {
     // this.startsTime.setMinutes(0);
 
     // max Time
-    this.maxTime.setHours(19);
+    this.maxTime.setHours(24);
     this.maxTime.setMinutes(0);
+
     // min Time
     this.minTime.setHours(9);
     this.minTime.setMinutes(0);

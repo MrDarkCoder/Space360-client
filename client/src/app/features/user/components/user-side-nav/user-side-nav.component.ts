@@ -15,6 +15,7 @@ import {
 } from '@angular/animations';
 import { MembersService } from 'src/app/services/members.service';
 import { User } from 'src/app/models/users/User';
+import { Router } from '@angular/router';
 
 const sidebarData = [
   {
@@ -87,7 +88,7 @@ export class UserSideNavComponent implements OnInit {
     }
   }
 
-  constructor(private memberService: MembersService) {}
+  constructor(private memberService: MembersService, private router: Router) {}
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
@@ -110,6 +111,10 @@ export class UserSideNavComponent implements OnInit {
       collapsed: this.collapsed,
       screenWidth: this.screenWidth,
     });
+  }
+
+  moveToAdmin() {
+    this.router.navigate(['/admin']);
   }
 
   logOut() {

@@ -363,27 +363,32 @@ textarea.form-control-lg {
 }
 
 .space-badge.status-SCHEDULED {
-  background-color: rgba(19, 99, 223, 0.5);
+  background-color: rgba(19, 99, 223, 0.271);
   color: #1363df;
 }
 
 .space-badge.status-CANCELLED {
-  background-color: rgba(252, 138, 138);
+  background-color: rgba(252, 138, 138, 0.271);
   color: #a30f0f;
 }
 
-.space-badge.status-ONPROGRESS {
-  background-color: rgba(255, 167, 38, 0.5);
+.space-badge.status-RESERVED {
+  background-color: rgb(249, 178, 178, 0.271);
+  color: #a30f0f;
+}
+
+.space-badge.status-ON-PROGRESS {
+  background-color: rgba(255, 218, 162, 0.271);
   color: #ffa726;
 }
 
 .space-badge.status-COMPLETED {
-  background-color: rgba(108, 219, 147, 0.5);
-  color: rgba(108, 219, 147, 255);
+  background-color: rgba(108, 219, 147, 0.271);
+  color: rgb(31, 110, 59);
 }
 
 .space-badge.status-AVAILABLE {
-  background-color: rgba(98, 252, 132, 0.5);
+  background-color: rgba(98, 252, 132, 0.271);
   color: #018508;
 }
 

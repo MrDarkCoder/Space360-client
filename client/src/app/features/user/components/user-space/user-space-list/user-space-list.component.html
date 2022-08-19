@@ -15,7 +15,7 @@
   <div class="row">
     <div
       style="min-height: 50.5rem; box-shadow: none"
-      class="col-12 d-flex flex-wrap align-items-center justify-content-start"
+      class="col-12 d-flex flex-wrap align-items-center justify-content-start justify-content-center "
     >
       <ng-container *ngIf="spaces.length > 0">
         <ng-container *ngFor="let space of spaces">
@@ -31,13 +31,20 @@
               <h3>{{ space.spaceName }}</h3>
               <h5>{{ space.spaceCategory.spaceCategoryName }}</h5>
               <div class="actions mt-3">
-                <button
+                <!-- <button
                   type="button"
                   (click)="movetoreservation()"
                   class="btn w-50 button"
                 >
                   Book Now
-                </button>
+                </button> -->
+                <h5>
+                  <span
+                    [class]="'space-badge status-' + space.status.statusName"
+                  >
+                    {{ space.status.statusName }}
+                  </span>
+                </h5>
               </div>
             </div>
           </div>

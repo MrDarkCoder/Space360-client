@@ -18,6 +18,10 @@
         <p class="m-0 p-0 h5">{{ currentUser.teamName }}</p>
         <p class="m-0 mt-2 text-muted p-0 h6">{{ currentUser.subteamName }}</p>
       </div>
+
+      <ng-container *ngIf="currentUser.userRole == 'Admin' && collapsed">
+        <button (click)="moveToUser()" class="mt-4 btn button">User</button>
+      </ng-container>
     </div>
   </div>
 

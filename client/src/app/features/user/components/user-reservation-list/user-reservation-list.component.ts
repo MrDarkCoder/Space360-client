@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./user-reservation-list.component.scss'],
 })
 export class UserReservationListComponent implements OnInit {
-  spaces = [];
+  spaces: any = [];
   reservations = [];
   currentUser: User;
   utc = utc;

@@ -44,12 +44,13 @@
             <td>{{ reserve.acceptedCount }}</td>
             <td>{{ utc(reserve.startsAt).local() | date: "hh:mm a" }}</td>
             <td>{{ utc(reserve.endsAt).local() | date: "hh:mm a" }}</td>
-            <td>{{ reserve.status.statusName }}</td>
-            <!-- <td>
-              <span [class]="'space-badge status-' + space.status.statusName">{{
-                space.status.statusName
-              }}</span>
-            </td> -->
+            <!-- <td>{{ reserve.status.statusName }}</td> -->
+            <td>
+              <span
+                [class]="'space-badge status-' + reserve.status.statusName"
+                >{{ reserve?.status?.statusName }}</span
+              >
+            </td>
             <td>
               <button
                 [disabled]="

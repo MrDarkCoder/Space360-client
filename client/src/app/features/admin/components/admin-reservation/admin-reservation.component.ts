@@ -6,6 +6,7 @@ import { StatisticsService } from 'src/app/services/statistics.service';
 
 import { utc } from 'moment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-reservation',
@@ -32,7 +33,8 @@ export class AdminReservationComponent implements OnInit {
   constructor(
     private reservationsService: ReservationsService,
     private statService: StatisticsService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {}
 
   // labels: ['Elon Musk', 'Silicon Valley', 'Training Hall', 'New York'],
@@ -152,6 +154,10 @@ export class AdminReservationComponent implements OnInit {
         });
       },
     });
+  }
+
+  moveUserModule() {
+    this.router.navigate(['/user/reserve']);
   }
 
   refresh() {
