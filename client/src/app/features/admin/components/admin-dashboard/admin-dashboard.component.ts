@@ -215,6 +215,8 @@ export class AdminDashboardComponent implements OnInit {
   getSpaceCategoryBarChart() {
     this.statService.getSpaceCategoryBar(false).subscribe({
       next: (response) => {
+        console.log("log", response);
+        
         this.basicData = {
           labels: response.labels,
           datasets: [

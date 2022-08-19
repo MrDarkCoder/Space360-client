@@ -24,6 +24,20 @@
           ></p-chart>
         </div>
       </ng-container>
+      <ng-container *ngIf="basicData?.labels.length <= 0">
+        <div
+          style="height: 250px"
+          class="card justify-content-center align-items-center cd-chart"
+        >
+          <img
+            style="width: 10rem; height: 10rem"
+            src="assets/images/noresult.jpg"
+            alt="no result"
+            class="image"
+          />
+          <h3>No Stats Found</h3>
+        </div>
+      </ng-container>
     </div>
   </div>
 

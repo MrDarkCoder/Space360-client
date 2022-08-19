@@ -34,13 +34,13 @@ export class ErrorInterceptor implements HttpInterceptor {
 
                 throw modalStateErrors.flat();
               } else {
-                this.toastr.error(error?.error, error.status);
+                this.toastr.error(error?.error);
               }
               break;
 
             case 401:
               this.toastr.error(error.error.message);
-              console.log(error.error.message, error.status);
+              console.log(error.error.message);
               break;
 
             case 404:

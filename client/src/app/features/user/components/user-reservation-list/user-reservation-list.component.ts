@@ -51,7 +51,8 @@ export class UserReservationListComponent implements OnInit {
     console.log('[clicked]', event);
     this.reservationService.cancelReservationByUser(event).subscribe({
       next: (response: any) => {
-        this.toastr.success(response);
+        this.toastr.success(response.message);
+        this.refreshTable();
       },
     });
   }

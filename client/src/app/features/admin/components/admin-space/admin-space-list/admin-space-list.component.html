@@ -118,9 +118,9 @@
             <th>Capacity</th>
             <th>Opens At</th>
             <th>Close At</th>
-            <!-- <th pSortableColumn="statusName">
-              Status<p-sortIcon field="statusName"></p-sortIcon>
-            </th> -->
+            <th pSortableColumn="status.statusName">
+              Status<p-sortIcon field="status.statusName"></p-sortIcon>
+            </th>
             <!-- <th>Detail</th> -->
           </tr>
         </ng-template>
@@ -140,11 +140,11 @@
             <td>{{ space.spaceCapacity }}</td>
             <td>{{ space.opensAt | date: "hh:mm a" }}</td>
             <td>{{ space.closesAt | date: "hh:mm a" }}</td>
-            <!-- <td>
+            <td>
               <span [class]="'space-badge status-' + space.status.statusName">{{
                 space.status.statusName
               }}</span>
-            </td> -->
+            </td>
             <!-- <td>
                   <button
                     (click)="moveToSpaceDetail(space.spaceName)"

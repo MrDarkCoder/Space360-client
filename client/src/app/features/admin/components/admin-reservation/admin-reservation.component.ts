@@ -156,6 +156,6 @@ export class AdminReservationComponent implements OnInit {
 
   refresh() {
     this.loadSpaceBarChart(true);
-    // this.loadReservations();
+    this.loadReservations();
   }
 }
