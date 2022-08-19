@@ -17,14 +17,23 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     canActivate: [LoggedInAuthGuardGuard],
+    title: 'Login',
   },
   {
     path: 'register',
     component: RegisterComponent,
     canActivate: [LoggedInAuthGuardGuard],
     children: [
-      { path: 'register-form', component: RegisterFormComponent },
-      { path: 'verification', component: VerificationComponent },
+      {
+        path: 'register-form',
+        component: RegisterFormComponent,
+        title: 'Register Form',
+      },
+      {
+        path: 'verification',
+        component: VerificationComponent,
+        title: 'Verification Token',
+      },
       { path: '', redirectTo: 'register-form', pathMatch: 'full' },
     ],
   },
@@ -35,10 +44,12 @@ const routes: Routes = [
       {
         path: 'forget-password-account-form',
         component: ForgetPasswordTextFormComponent,
+        title: 'Reset Form',
       },
       {
         path: 'forget-password-reset-form',
         component: ForgetPasswordResetFormComponent,
+        title: 'Reset Form',
       },
       {
         path: '',
@@ -51,6 +62,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     canActivate: [LoggedInAuthGuardGuard],
+    title: 'Home',
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];

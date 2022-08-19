@@ -28,17 +28,30 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['Admin'] },
     children: [
-      { path: 'dashboard', component: AdminDashboardComponent },
-      { path: 'reservation', component: AdminReservationComponent },
-      { path: 'space', component: AdminSpaceListComponent },
+      {
+        path: 'dashboard',
+        component: AdminDashboardComponent,
+        title: 'Dashboard',
+      },
+      {
+        path: 'reservation',
+        component: AdminReservationComponent,
+        title: 'Reservation',
+      },
+      { path: 'space', component: AdminSpaceListComponent, title: 'Space' },
       {
         path: 'space/create',
         component: AdminSpaceCreateComponent,
         children: [
-          { path: 'space-form', component: AdminSpaceFormComponent },
+          {
+            path: 'space-form',
+            component: AdminSpaceFormComponent,
+            title: 'Space Form',
+          },
           {
             path: 'space-category-form',
             component: AdminSpaceCategoryFormComponent,
+            title: 'Space Category Form',
           },
           { path: '', redirectTo: 'space-form', pathMatch: 'full' },
         ],
@@ -51,20 +64,34 @@ const routes: Routes = [
       {
         path: 'team',
         component: AdminTeamListComponent,
+        title: 'Team',
       },
       {
         path: 'team/create',
         component: AdminTeamCreateComponent,
         children: [
-          { path: 'team-form', component: AdminTeamFormComponent },
-          { path: 'sub-team-form', component: AdminSubteamFormComponent },
+          {
+            path: 'team-form',
+            component: AdminTeamFormComponent,
+            title: 'Team Create Form',
+          },
+          {
+            path: 'sub-team-form',
+            component: AdminSubteamFormComponent,
+            title: 'Sub Team Create Form',
+          },
           { path: '', redirectTo: 'team-form', pathMatch: 'full' },
         ],
       },
     ],
   },
   { path: '', redirectTo: 'admin', pathMatch: 'full' },
-  { path: '**', component: NotFoundComponent, pathMatch: 'full' },
+  {
+    path: '**',
+    component: NotFoundComponent,
+    pathMatch: 'full',
+    title: 'Not Found',
+  },
 ];
 
 const rot: Routes = [
@@ -77,17 +104,30 @@ const rot: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard, AdminGuard],
         children: [
-          { path: 'dashboard', component: AdminDashboardComponent },
-          { path: 'reservation', component: AdminReservationComponent },
-          { path: 'space', component: AdminSpaceListComponent },
+          {
+            path: 'dashboard',
+            component: AdminDashboardComponent,
+            title: 'Dashboard',
+          },
+          {
+            path: 'reservation',
+            component: AdminReservationComponent,
+            title: 'Reservation',
+          },
+          { path: 'space', component: AdminSpaceListComponent, title: 'Space' },
           {
             path: 'space/create',
             component: AdminSpaceCreateComponent,
             children: [
-              { path: 'space-form', component: AdminSpaceFormComponent },
+              {
+                path: 'space-form',
+                component: AdminSpaceFormComponent,
+                title: 'Space Form',
+              },
               {
                 path: 'space-category-form',
                 component: AdminSpaceCategoryFormComponent,
+                title: 'Space Category Form',
               },
               { path: '', redirectTo: 'space-form', pathMatch: 'full' },
             ],
@@ -100,18 +140,32 @@ const rot: Routes = [
           {
             path: 'team',
             component: AdminTeamListComponent,
+            title: 'Team',
           },
           {
             path: 'team/create',
             component: AdminTeamCreateComponent,
             children: [
-              { path: 'team-form', component: AdminTeamFormComponent },
-              { path: 'sub-team-form', component: AdminSubteamFormComponent },
+              {
+                path: 'team-form',
+                component: AdminTeamFormComponent,
+                title: 'Team Create Form',
+              },
+              {
+                path: 'sub-team-form',
+                component: AdminSubteamFormComponent,
+                title: 'Team Create Form',
+              },
               { path: '', redirectTo: 'team-form', pathMatch: 'full' },
             ],
           },
           { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-          { path: '**', component: NotFoundComponent, pathMatch: 'full' },
+          {
+            path: '**',
+            component: NotFoundComponent,
+            pathMatch: 'full',
+            title: 'Not Found',
+          },
         ],
       },
     ],

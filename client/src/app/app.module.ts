@@ -12,6 +12,8 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { WithCredentialsInterceptor } from './interceptors/with-credentials.interceptor';
 import { NotFoundComponent } from './error/not-found/not-found.component';
+import { TitleStrategy } from '@angular/router';
+import { TemplatePageTitleStrategyService } from './services/template-page-title-strategy.service';
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
@@ -33,6 +35,10 @@ import { NotFoundComponent } from './error/not-found/not-found.component';
     },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    {
+      provide: TitleStrategy,
+      useClass: TemplatePageTitleStrategyService,
+    },
   ],
   bootstrap: [AppComponent],
 })
