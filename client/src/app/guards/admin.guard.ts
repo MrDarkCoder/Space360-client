@@ -18,15 +18,9 @@ export class AdminGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.memberService.currentUser$.pipe(
       map((user) => {
-        console.log('gauuad', user);
-
         if (user.userRole == 'Admin') {
-          // if (user.role[0] == 'Admin') {
-          //   this.router.navigate(['/admin']);
-          // }
           return true;
         }
-        console.log("Error, You Can't enter this area");
         this.router.navigate(['/']);
         return false;
       })

@@ -18,14 +18,13 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   canActivate(): Observable<boolean> {
-    console.log('[onto guard]');
-    let c: User;
+  
+    let currentUser: User;
     this.memberService.currentUser$
       .pipe(take(1))
-      .subscribe((user) => (c = user));
-    console.log(c);
-    if (c) {
-      // this.toastr.success('You shall pass');
+      .subscribe((user) => (currentUser = user));
+
+    if (currentUser) {
       return of(true);
     } else {
       this.toastr.error('You shall not pass');

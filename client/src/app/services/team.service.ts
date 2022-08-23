@@ -2,6 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { SubTeam } from '../models/forms/SubTeam';
+import { UserRespone } from '../models/users/User';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +14,7 @@ export class TeamService {
 
   getTeams() {
     return this.http.get(this.baseUrl + 'team/form').pipe(
-      map((response) => {
-        console.log('[API - /team/form]', response);
+      map((response) => {  
         return response;
       })
     );
@@ -22,7 +23,7 @@ export class TeamService {
   getTeamDetails() {
     return this.http.get(this.baseUrl + 'team').pipe(
       map((response) => {
-        console.log('[API - /team]', response);
+       
         return response;
       })
     );
@@ -38,7 +39,7 @@ export class TeamService {
     return this.http
       .get(this.baseUrl + 'team/get-subteams-by-teamid?', { params: params })
       .pipe(
-        map((response) => {
+        map((response:SubTeam[]) => {
           // console.log('[API - /subTeambyTeamId]', response);
           return response;
         })
@@ -49,10 +50,10 @@ export class TeamService {
     let params = new HttpParams();
     params = params.append('mainTeamId', id.toString());
     return this.http
-      .get(this.baseUrl + 'user/get-users-by-teamid?', { params: params })
+      .get<UserRespone[]>(this.baseUrl + 'user/get-users-by-teamid?', { params: params })
       .pipe(
         map((response) => {
-          console.log('[API - /members]', response);
+          
           return response;
         })
       );

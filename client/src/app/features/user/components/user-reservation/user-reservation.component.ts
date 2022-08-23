@@ -5,12 +5,15 @@ import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { utc } from 'moment';
 
-import { User } from 'src/app/models/users/User';
+import { User, UserRespone } from 'src/app/models/users/User';
 import { MembersService } from 'src/app/services/members.service';
 import { ReservationsService } from 'src/app/services/reservations.service';
 import { SpaceService } from 'src/app/services/space.service';
 import { TeamService } from 'src/app/services/team.service';
 import { Router } from '@angular/router';
+import { SubTeam } from 'src/app/models/forms/SubTeam';
+import { Space } from 'src/app/models/space/space';
+import { ReservationTimings } from 'src/app/models/reservations/reservation';
 
 @Component({
   selector: 'app-user-reservation',
@@ -27,12 +30,12 @@ export class UserReservationComponent implements OnInit {
   maxTime: Date = new Date();
   startsTime: Date = new Date();
 
-  subTeams: any;
-  teamMembers: any;
-  filteredTeammembers: any;
+  subTeams: SubTeam[];
+  teamMembers: UserRespone[];
+  filteredTeammembers: UserRespone[];
   spaceCategory: any;
-  spaces: any;
-  reservations = [];
+  spaces: Space[];
+  reservations:ReservationTimings[] = [];
 
   isSpaceAvailable = false;
 
@@ -126,6 +129,8 @@ export class UserReservationComponent implements OnInit {
     }
   }
 
+  //To filter team members
+
   filterTeamMembers(event: any) {
     let filtered: any[] = [];
     let query = event.query;
@@ -138,35 +143,33 @@ export class UserReservationComponent implements OnInit {
     this.filteredTeammembers = filtered;
   }
 
+  //To get Sub Teams by Main Team Id
   getSubTeamsByMainTeamId() {
     this.teamService.getSubTeams(this.currentUser.userTeamId).subscribe({
       next: (response) => {
-        console.log('[subteam]', response);
         this.subTeams = response;
       },
     });
   }
 
+  //To get Space Category
   getSpaceCategory() {
     this.spaceService.getSpaceCategory().subscribe({
       next: (response) => {
-        console.log('[Space]', response);
         this.spaceCategory = response;
       },
     });
   }
 
+  //Executed when value selections in the space category dropdown
   changeCategory(event: any) {
     this.reservationForm.get('spaceCategoryId').setValue(event.target.value, {
       onlySelf: true,
     });
-    console.log(
-      '[selected cate id]',
-      this.reservationForm.value.spaceCategoryId
-    );
     this.getSpaceByCategory(this.reservationForm.value.spaceCategoryId);
   }
 
+  //Executed when value selections in the space  dropdown
   changeSpace(event: any) {
     this.reservationForm.get('reservedSpaceId').setValue(event.target.value, {
       onlySelf: true,
@@ -174,33 +177,31 @@ export class UserReservationComponent implements OnInit {
     this.getReservedTimingsOfSpace(this.reservationForm.value.reservedSpaceId);
   }
 
+  //To get space by category
   getSpaceByCategory(id: number) {
     this.spaceService.getSpaceByCategory(id).subscribe({
       next: (response) => {
         this.spaces = response;
-        console.log('[Sapces by cate id]', response);
       },
     });
   }
 
+  //To get team members
   getTeamMembers() {
-    console.log('[teamid]', this.currentUser.userTeamId);
 
     this.teamService.getTeamMembers(this.currentUser.userTeamId).subscribe({
       next: (response) => {
         this.teamMembers = response;
-        console.log('[teammembers]', this.teamMembers);
+        
       },
     });
   }
 
+
+  // To check space availability
   checkSpaceAvailability() {
-    let d = new Date(this.reservationForm.value.startsAt).toISOString();
-
-    console.log('[checker]', this.reservationForm.value);
-
     this.reservationService
-      .chechSpaceAvailability(this.reservationForm.value)
+      .checkSpaceAvailability(this.reservationForm.value)
       .subscribe({
         next: (response: any) => {
           this.isSpaceAvailable = response.isAvail;
@@ -209,19 +210,17 @@ export class UserReservationComponent implements OnInit {
           } else {
             this.toastr.warning(response.message);
           }
-          console.log(response);
         },
         error: (err) => {
-          console.log(err);
           this.toastr.warning(err.message);
         },
       });
   }
 
+  //Get reserved timings of space
   getReservedTimingsOfSpace(id: number) {
     this.spaceService.getReservedTimings(id, '').subscribe({
-      next: (response: any) => {
-        console.log('[timings]', response);
+      next: (response: ReservationTimings[]) => {
         this.reservations = response;
       },
     });
@@ -232,23 +231,20 @@ export class UserReservationComponent implements OnInit {
       this.reservationForm.value.startsAt
     ).toISOString();
 
-    let d = {
+    let data = {
       ...this.reservationForm.value,
     };
 
     if (this.reservationForm.value.selection != 'subteam') {
-      d = {
-        ...d,
+      data = {
+        ...data,
         reservedTeamId: this.currentUser.userTeamId,
         reservedSubTeamId: this.currentUser.userSubTeamId,
       };
     }
 
-    console.log('[reser]', d);
-
-    this.reservationService.reserve(d).subscribe({
+    this.reservationService.reserve(data).subscribe({
       next: (response: any) => {
-        console.log(response);
         this.toastr.success(response.message);
         // move to calendar page
         this.router.navigate(['user/calendar']);

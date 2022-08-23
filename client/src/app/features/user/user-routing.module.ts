@@ -11,38 +11,38 @@ import { UserReservationComponent } from './components/user-reservation/user-res
 import { UserSpaceDetailComponent } from './components/user-space/user-space-detail/user-space-detail.component';
 import { UserSpaceListComponent } from './components/user-space/user-space-list/user-space-list.component';
 
-const routes: Routes = [
-  {
-    path: 'user',
-    component: UserLayoutComponent,
-    runGuardsAndResolvers: 'always',
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'dashboard',
-        component: UserDashboardComponent,
-        title: 'dashboard',
-      },
-      { path: 'calendar', component: UserCalendarComponent, title: 'Calendar' },
-      {
-        path: 'reserve',
-        component: UserReservationComponent,
-        title: 'Reserve A Space',
-      },
-      {
-        path: 'reservations',
-        component: UserReservationListComponent,
-        title: 'Reservations',
-      },
-      { path: 'space', component: UserSpaceListComponent, title: 'Space' },
-      { path: '', redirectTo: 'space', pathMatch: 'full' },
-      { path: '**', component: NotFoundComponent, pathMatch: 'full' },
-    ],
-  },
-  { path: '', redirectTo: 'user', pathMatch: 'full' },
-];
+// const routes: Routes = [
+//   {
+//     path: 'user',
+//     component: UserLayoutComponent,
+//     runGuardsAndResolvers: 'always',
+//     canActivate: [AuthGuard],
+//     children: [
+//       {
+//         path: 'dashboard',
+//         component: UserDashboardComponent,
+//         title: 'dashboard',
+//       },
+//       { path: 'calendar', component: UserCalendarComponent, title: 'Calendar' },
+//       {
+//         path: 'reserve',
+//         component: UserReservationComponent,
+//         title: 'Reserve A Space',
+//       },
+//       {
+//         path: 'reservations',
+//         component: UserReservationListComponent,
+//         title: 'Reservations',
+//       },
+//       { path: 'space', component: UserSpaceListComponent, title: 'Space' },
+//       { path: '', redirectTo: 'space', pathMatch: 'full' },
+//       { path: '**', component: NotFoundComponent, pathMatch: 'full' },
+//     ],
+//   },
+//   { path: '', redirectTo: 'user', pathMatch: 'full' },
+// ];
 
-const rot: Routes = [
+const routes: Routes = [
   {
     path: '',
     component: UserLayoutComponent,
@@ -82,7 +82,7 @@ const rot: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(rot)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class UserRoutingModule {}

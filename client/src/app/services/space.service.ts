@@ -4,6 +4,7 @@ import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PaginatedResult } from '../models/pagination/pagination';
 import { SpaceParams } from '../models/pagination/spaceParams';
+import { ReservationTimings } from '../models/reservations/reservation';
 import { Space } from '../models/space/space';
 
 @Injectable({
@@ -28,7 +29,7 @@ export class SpaceService {
 
   getAllSpaces() {
     return this.http.get(this.baseUrl + 'space/all').pipe(
-      map((response) => {
+      map((response:Space[]) => {
         return response;
       })
     );
@@ -52,7 +53,7 @@ export class SpaceService {
 
   getSpaceByCategory(id: number) {
     return this.http.get(this.baseUrl + 'space/category/form/' + id).pipe(
-      map((response) => {
+      map((response:Space[]) => {
         return response;
       })
     );
@@ -66,6 +67,7 @@ export class SpaceService {
     );
   }
 
+  
   getReservedTimings(spaceId: number, spaceName: string) {
     let params = new HttpParams();
     params = params.append('spaceId', spaceId);
@@ -76,7 +78,7 @@ export class SpaceService {
         params: params,
       })
       .pipe(
-        map((response: any) => {
+        map((response: ReservationTimings[]) => {
           return response;
         })
       );

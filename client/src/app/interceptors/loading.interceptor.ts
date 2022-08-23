@@ -9,6 +9,8 @@ import { delay, finalize, Observable } from 'rxjs';
 import { BusyService } from '../services/busy.service';
 
 @Injectable()
+
+//Interceptor for displaying loading spinner on UI
 export class LoadingInterceptor implements HttpInterceptor {
   constructor(private busyService: BusyService) {}
 
@@ -18,7 +20,8 @@ export class LoadingInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     this.busyService.busy();
     return next.handle(request).pipe(
-      // delay(1000),
+
+      //finalize will invoke this method when source observable completes streaming 
       finalize(() => {
         this.busyService.idle();
       })

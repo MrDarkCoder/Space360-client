@@ -56,7 +56,7 @@ export class ReservationsService {
     );
   }
 
-  chechSpaceAvailability(data: any) {
+  checkSpaceAvailability(data: any) {
     return this.http
       .post(this.baseUrl + 'reservation/check-space-available', data)
       .pipe(

@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-
 import {
   CalendarOptions,
   defineFullCalendarElement,
 } from '@fullcalendar/web-component';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
-
 import { ReservationsService } from 'src/app/services/reservations.service';
 import * as moment from 'moment';
 import * as $ from 'jquery';
 import { SpaceService } from 'src/app/services/space.service';
+import { Space } from 'src/app/models/space/space';
+
 
 defineFullCalendarElement();
 
@@ -20,7 +20,7 @@ defineFullCalendarElement();
 })
 export class UserCalendarComponent implements OnInit {
   calendarOptions: CalendarOptions;
-  space: any = [];
+  space: Space[] ;
   events: any = [];
 
   constructor(
@@ -33,20 +33,22 @@ export class UserCalendarComponent implements OnInit {
     this.getReservations();
   }
 
+  //Get all spaces
   getSpaces() {
     this.spaceService.getAllSpaces().subscribe({
       next: (response) => {
         this.space = response;
         this.formatResource(this.space);
-        console.log('[space calender]', response);
+        
       },
     });
   }
+
+  //Get all reservations
   getReservations() {
     this.reservationService.getAllReservations().subscribe({
       next: (response) => {
         this.formatEvents(response);
-        console.log('[calender]', response);
       },
     });
   }
@@ -70,8 +72,8 @@ export class UserCalendarComponent implements OnInit {
   }
 
   // Formatting space array
-  formatResource(value: any) {
-    let array: any[] = [];
+  formatResource(value: Space[]) {
+    let array = [];
     for (let i = 0; i < value.length; i++) {
       let space = {
         id: value[i].spaceId.toString(),
@@ -85,10 +87,11 @@ export class UserCalendarComponent implements OnInit {
     this.initializeCalendarOptions(array, this.events);
   }
 
+
+  //To Initialize calendar options
   initializeCalendarOptions(resources: any[], events: any[]) {
     this.calendarOptions = {
       eventMinWidth: 100,
-      timeZone: 'local',
       slotMinTime: '09:00:00',
       slotMaxTime: '19:00:00',
       plugins: [resourceTimelinePlugin],

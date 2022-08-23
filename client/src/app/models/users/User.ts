@@ -11,3 +11,9 @@ export interface User {
   firstName: string;
   lastName: string;
 }
+
+export interface UserRespone{
+  userId:number,
+  username:string,
+  email:string
+}

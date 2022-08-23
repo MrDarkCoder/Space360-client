@@ -61,11 +61,11 @@ export class AdminSubteamFormComponent implements OnInit {
 
   onSubmit() {
     this.submited = true;
-    let d = {
+    let data = {
       mainTeamId: this.currentTeamId,
       subTeamName: this.subteamForm.value.subTeamName,
     };
-    this.subteamService.createSubTeam(d).subscribe({
+    this.subteamService.createSubTeam(data).subscribe({
       next: (res: any) => {
         this.toastr.success(res.message);
         this.subteamForm.reset();

@@ -16,12 +16,12 @@ export class MembersService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  //For user login
   login(data: any) {
-    // set current user - pending
     return this.http.post(this.baseUrl + 'auth/login', data).pipe(
       map((response: User) => {
         const user = response;
-        console.log('[API - LOGIN]', response);
+
         if (user) {
           this.setCurrentUser(user);
           // routing;
@@ -37,46 +37,50 @@ export class MembersService {
     );
   }
 
+  //Set the logged user details in Localstorage and updates the currentUser instance
   setCurrentUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUser.next(user);
   }
 
+
+  //For register
   register(data: any) {
     return this.http.post(this.baseUrl + 'auth/register', data).pipe(
       map((response) => {
-        console.log('[API - Register]', response);
         return response;
       })
     );
   }
 
-  verifyEmail(id: string) {
-    return this.http.post(this.baseUrl + 'auth/verify-mail/' + id, {}).pipe(
+  //To verify email by sending Otp
+  verifyEmail(otp: string) {
+    return this.http.post(this.baseUrl + 'auth/verify-mail/' + otp, {}).pipe(
       map((response) => {
-        console.log('[API - Verify]', response);
         return response;
       })
     );
   }
 
+//For submitting reset password request
   resetAccountCheck(data: any) {
     return this.http.post(this.baseUrl + 'auth/forgot-password', data).pipe(
       map((response) => {
-        console.log('[API - REset account check]');
         return response;
       })
     );
   }
 
+  //To reset password
   resetPassword(data: any) {
     return this.http.post(this.baseUrl + 'auth/reset-password', data).pipe(
       map((response) => {
-        console.log('[RESET PWD]', response);
         return response;
       })
     );
   }
+
+  //delete the user item in local storage
   logout() {
     localStorage.removeItem('user');
     this.currentUser.next(null);

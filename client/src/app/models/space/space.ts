@@ -17,3 +17,9 @@ export interface Status {
   statusId: number;
   statusName: string;
 }
+
+export interface reservedSpace{
+  spaceId:number,
+  spaceName:string,
+  
+}

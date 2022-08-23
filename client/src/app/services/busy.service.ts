@@ -9,6 +9,7 @@ export class BusyService {
 
   constructor(private spinnerService: NgxSpinnerService) {}
 
+  //To display the loading spinner
   busy() {
     this.busyRequestCount++;
     this.spinnerService.show(undefined, {
@@ -18,6 +19,7 @@ export class BusyService {
     });
   }
 
+  //To stop the loading spinner
   idle() {
     this.busyRequestCount--;
     if (this.busyRequestCount <= 0) {

@@ -11,6 +11,7 @@ export class SubteamService {
 
   constructor(private http: HttpClient) {}
 
+  //To create sub team
   createSubTeam(subteam: any) {
     return this.http.post(this.baseUrl + 'subTeam', subteam).pipe(
       map((response) => {
